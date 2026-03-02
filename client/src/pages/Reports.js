@@ -63,7 +63,7 @@ const Reports = () => {
       .catch((err) => console.error("Failed to load filter data", err));
   }, [user]);
 
-  // Restore state from localStorage on mount
+  // Restore state from localStorage on mount OR fetch all by default
   useEffect(() => {
     const savedFilters = localStorage.getItem("superadmin_report_filters");
     const hasGenerated = localStorage.getItem("superadmin_report_generated");
@@ -75,7 +75,11 @@ const Reports = () => {
         fetchReportInternal(parsedFilters);
       } catch (e) {
         console.error("Failed to parse saved filters", e);
+        fetchReportInternal({}); // fallback to all
       }
+    } else {
+      // First time? Load all activities automatically
+      fetchReportInternal({});
     }
     // eslint-disable-next-line
   }, []); // Run only on mount
@@ -181,7 +185,32 @@ const Reports = () => {
   return (
     <div className="reports-page">
       <div className="reports-page-header">
-        <h1>Complaint Details Report</h1>
+        <div className="header-title">
+          <h1>Complaint Activity Report</h1>
+          <p className="subtitle">
+            Automatically tracking system-wide activities
+          </p>
+        </div>
+        {results.length > 0 && (
+          <div className="report-summary-stats">
+            <div className="stat-pill">
+              <span className="stat-label">Total:</span>
+              <span className="stat-value">{results.length}</span>
+            </div>
+            <div className="stat-pill pending">
+              <span className="stat-label">Pending:</span>
+              <span className="stat-value">
+                {results.filter((r) => r.status === "Pending").length}
+              </span>
+            </div>
+            <div className="stat-pill success">
+              <span className="stat-label">Completed:</span>
+              <span className="stat-value">
+                {results.filter((r) => r.status === "Completed").length}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
 
       {error && <div className="error-banner">{error}</div>}
@@ -264,10 +293,25 @@ const Reports = () => {
           </div>
           <div className="filter-actions">
             <button onClick={handleManualGenerate} className="btn-generate">
-              Generate Report
+              <span>🔄</span> Update Report
             </button>
             <button onClick={exportCSV} className="btn-export">
-              Export CSV
+              <span>📥</span> Export CSV
+            </button>
+            <button
+              onClick={() => {
+                setFilters({
+                  department: "",
+                  programme: "",
+                  complaintType: "",
+                  status: "",
+                  assignee: "",
+                });
+                handleManualGenerate();
+              }}
+              className="btn-clear"
+            >
+              Clear
             </button>
           </div>
         </div>
@@ -284,14 +328,13 @@ const Reports = () => {
               <table className="report-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Dept</th>
-                    <th>Programme</th>
-                    <th>Block</th>
-                    <th>Room</th>
+                    <th>Reported On</th>
+                    <th>Last Activity</th>
+                    <th>Dept / Prog</th>
+                    <th>Location</th>
                     <th>Type</th>
                     <th>Status</th>
-                    <th>Created By</th>
+                    <th>Reporter</th>
                     <th>Assignee</th>
                     <th>Action</th>
                   </tr>
@@ -300,12 +343,38 @@ const Reports = () => {
                   {results.length > 0 ? (
                     results.map((r) => (
                       <tr key={r._id}>
-                        <td>{new Date(r.createdAt).toLocaleString()}</td>
-                        <td>{r.departmentName || "-"}</td>
-                        <td>{r.programmeName || "-"}</td>
-                        <td>{r.blockName}</td>
-                        <td>{r.roomNumber}</td>
-                        <td>{r.complaintType}</td>
+                        <td className="date-cell">
+                          <div className="main-date">
+                            {new Date(r.createdAt).toLocaleDateString()}
+                          </div>
+                          <div className="sub-time">
+                            {new Date(r.createdAt).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </div>
+                        </td>
+                        <td className="activity-cell">
+                          {new Date(r.updatedAt).toLocaleDateString() ===
+                          new Date(r.createdAt).toLocaleDateString()
+                            ? "Just reported"
+                            : `${new Date(r.updatedAt).toLocaleDateString()} ${new Date(r.updatedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`}
+                        </td>
+                        <td>
+                          <div className="dept-text">
+                            {r.departmentName || "-"}
+                          </div>
+                          <div className="sub-text">
+                            {r.programmeName || "-"}
+                          </div>
+                        </td>
+                        <td>
+                          <div className="block-text">{r.blockName}</div>
+                          <div className="sub-text">Room {r.roomNumber}</div>
+                        </td>
+                        <td>
+                          <span className="type-text">{r.complaintType}</span>
+                        </td>
                         <td>
                           <span className={getStatusBadge(r.status)}>
                             {r.status}
@@ -313,14 +382,22 @@ const Reports = () => {
                         </td>
                         <td>{r.createdBy?.username || r.createdBy?.email}</td>
                         <td>
-                          {r.assignedTo?.username || r.assignedTo?.email || "-"}
+                          {r.assignedTo ? (
+                            <div className="assignee-info">
+                              <strong>{r.assignedTo.username}</strong>
+                              <span className="sub-role">
+                                ({r.assignedTo.role})
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="unassigned">-</span>
+                          )}
                         </td>
                         <td>
                           <button
-                            style={{ background: "red", color: "white" }}
                             className="btn-delete-report"
                             onClick={() => handleDelete(r._id)}
-                            title="Delete this complaint"
+                            title="Delete this record"
                           >
                             🗑️
                           </button>
@@ -352,4 +429,3 @@ const Reports = () => {
 };
 
 export default Reports;
-

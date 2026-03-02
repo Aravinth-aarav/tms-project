@@ -50,6 +50,50 @@
   letter-spacing: -0.02em;
 }
 
+.subtitle {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.report-summary-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-pill {
+  background: #f1f5f9;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #e2e8f0;
+}
+
+.stat-pill.pending {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.stat-pill.success {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.stat-label {
+  font-weight: 600;
+  color: #64748b;
+}
+
+.stat-value {
+  font-weight: 800;
+}
+
 .filter-card {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px) saturate(180%);
@@ -171,6 +215,23 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
+.btn-clear {
+  padding: 0.8rem 1.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+  background: transparent;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-clear:hover {
+  background: #f8fafc;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+
 .reports-table-card {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px) saturate(180%);
@@ -255,6 +316,61 @@
   border: 1px solid #bbf7d0;
 }
 
+/* Table Enhancements */
+.sub-text,
+.sub-time,
+.sub-role {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.15rem;
+}
+
+.main-date,
+.dept-text,
+.block-text {
+  font-weight: 600;
+}
+
+.activity-cell {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.type-text {
+  background: #f1f5f9;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.assignee-info {
+  line-height: 1.2;
+}
+
+.unassigned {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.btn-delete-report {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  padding: 0.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete-report:hover {
+  background: #ef4444;
+  color: white;
+  transform: scale(1.1);
+}
+
 .error-banner {
   background: rgba(254, 242, 242, 0.85);
   backdrop-filter: blur(4px);
@@ -280,4 +396,3 @@
     flex-direction: column;
   }
 }
-
