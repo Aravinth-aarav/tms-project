@@ -4,10 +4,10 @@
 
 Follow these steps to create a SuperAdmin user using Postman:
 
-### Step 1: Start MongoDB and Backend Server
+### Step 1: Start MongoDB and server Server
 
 1. Ensure MongoDB is running on your local machine
-2. Navigate to the backend directory and start the server:
+2. Navigate to the server directory and start the server:
    ```bash
    npm run dev
    ```
@@ -221,3 +221,4 @@ Authorization: Bearer <your_jwt_token>
 - The JWT token expires in 7 days (configurable in `.env`)
 - Always include the `Authorization` header with the `Bearer <token>` format
 - Use valid MongoDB ObjectIds for department, programme, block, and room references
+

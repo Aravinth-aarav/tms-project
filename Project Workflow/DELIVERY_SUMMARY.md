@@ -7,7 +7,7 @@
 
 ## ✅ DELIVERABLES
 
-### 📦 Backend (Complete)
+### 📦 server (Complete)
 ```
 ✅ server.js              - Express server with all configurations
 ✅ 6 Database Models      - User, Department, Programme, Block, Room, Role
@@ -20,7 +20,7 @@
 ✅ 28 Total Files         - Production-ready code
 ```
 
-### 🎨 Frontend (Complete)
+### 🎨 client (Complete)
 ```
 ✅ React App              - Complete SPA with routing
 ✅ Login System           - JWT token-based authentication
@@ -67,13 +67,13 @@
 | Metric | Value |
 |--------|-------|
 | Total Files Created | 60+ |
-| Backend Files | 28 |
-| Frontend Files | 16 |
+| server Files | 28 |
+| client Files | 16 |
 | Documentation Files | 10 |
 | Lines of Code | 5000+ |
 | Database Models | 6 |
 | API Endpoints | 28 |
-| Frontend Pages | 8 |
+| client Pages | 8 |
 | Components | 2 |
 | Master Screens | 6 |
 
@@ -139,7 +139,7 @@
 - ✅ Production build ready
 
 ### Integration
-- ✅ Mobile app backend ready
+- ✅ Mobile app server ready
 - ✅ Third-party API integration ready
 - ✅ Webhook support ready
 - ✅ Email service ready
@@ -149,13 +149,13 @@
 ## 📋 FILE CATEGORIES
 
 ### Configuration Files (5)
-- ✅ package.json (backend)
-- ✅ package.json (frontend)
-- ✅ .env.example (backend)
-- ✅ .gitignore (backend)
-- ✅ .gitignore (frontend)
+- ✅ package.json (server)
+- ✅ package.json (client)
+- ✅ .env.example (server)
+- ✅ .gitignore (server)
+- ✅ .gitignore (client)
 
-### Backend Code (22)
+### server Code (22)
 - ✅ 1 Server file
 - ✅ 6 Models
 - ✅ 7 Controllers
@@ -163,7 +163,7 @@
 - ✅ 2 Middleware
 - ✅ 1 Config file
 
-### Frontend Code (16)
+### client Code (16)
 - ✅ 4 App files
 - ✅ 2 Components
 - ✅ 1 Context
@@ -183,8 +183,8 @@
 
 | Technology | Purpose | Version |
 |-----------|---------|---------|
-| React | Frontend UI | 18.2.0 |
-| Express | Backend API | 4.18.2 |
+| React | client UI | 18.2.0 |
+| Express | server API | 4.18.2 |
 | MongoDB | Database | 4.0+ |
 | Mongoose | ODM | 7.0.0 |
 | JWT | Authentication | 9.0.0 |
@@ -276,8 +276,8 @@ Total: 28 endpoints
 
 1. **Install dependencies**
    ```bash
-   cd backend && npm install
-   cd ../frontend && npm install
+   cd server && npm install
+   cd ../client && npm install
    ```
 
 2. **Start MongoDB**
@@ -285,14 +285,14 @@ Total: 28 endpoints
    mongod
    ```
 
-3. **Start Backend**
+3. **Start server**
    ```bash
-   cd backend && npm run dev
+   cd server && npm run dev
    ```
 
-4. **Start Frontend** (new terminal)
+4. **Start client** (new terminal)
    ```bash
-   cd frontend && npm start
+   cd client && npm start
    ```
 
 5. **Create SuperAdmin** (Postman)
@@ -312,11 +312,11 @@ Total: 28 endpoints
 - [ ] Test local setup
 - [ ] Create SuperAdmin user
 - [ ] Test API endpoints
-- [ ] Test frontend UI
+- [ ] Test client UI
 - [ ] Configure MongoDB Atlas (if cloud)
 - [ ] Update JWT_SECRET for production
 - [ ] Set NODE_ENV=production
-- [ ] Build frontend: npm run build
+- [ ] Build client: npm run build
 - [ ] Deploy to hosting platform
 
 ---
@@ -369,8 +369,8 @@ Your complete Complaint Management System is ready!
 **Total Code: 5000+ lines**
 
 ### What You Have:
-- ✅ Full backend system
-- ✅ Full frontend application
+- ✅ Full server system
+- ✅ Full client application
 - ✅ Database schema
 - ✅ Authentication system
 - ✅ API endpoints
@@ -391,3 +391,4 @@ Your complete Complaint Management System is ready!
 **Date Delivered:** February 4, 2026
 **Version:** 1.0.0
 **Status:** Production Ready
+

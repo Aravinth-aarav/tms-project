@@ -9,7 +9,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 
 ## Project Components
 
-### Backend (Node.js + Express + MongoDB)
+### server (Node.js + Express + MongoDB)
 
 #### Configuration & Setup
 - ✓ `.env.example` - Environment configuration template
@@ -49,7 +49,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 
 ---
 
-### Frontend (React + React Router + Axios)
+### client (React + React Router + Axios)
 
 #### Configuration & Setup
 - ✓ `package.json` - Dependencies and scripts
@@ -138,7 +138,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 - Software Developer - Software complaints
 - (Customizable - add more as needed)
 
-### Frontend Features
+### client Features
 - ✓ Responsive design
 - ✓ Clean and intuitive UI
 - ✓ Role-aware navigation
@@ -147,7 +147,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 - ✓ Loading states
 - ✓ Token persistence
 
-### Backend Features
+### server Features
 - ✓ RESTful API endpoints
 - ✓ CORS enabled
 - ✓ Error handling middleware
@@ -199,7 +199,7 @@ Similar schemas exist for Department, Programme, Block, Room, and Role.
 
 ## Project Statistics
 
-- **Backend Files**: 20+ files
+- **server Files**: 20+ files
   - 6 Models
   - 7 Controllers
   - 7 Routes
@@ -207,7 +207,7 @@ Similar schemas exist for Department, Programme, Block, Room, and Role.
   - 1 Config
   - Server setup
 
-- **Frontend Files**: 15+ files
+- **client Files**: 15+ files
   - 8 Page components
   - 1 Navigation component
   - 1 Auth context
@@ -227,16 +227,16 @@ Similar schemas exist for Department, Programme, Block, Room, and Role.
    mongod
    ```
 
-2. **Start Backend**
+2. **Start server**
    ```bash
-   cd backend
+   cd server
    npm install
    npm run dev
    ```
 
-3. **Start Frontend**
+3. **Start client**
    ```bash
-   cd frontend
+   cd client
    npm install
    npm start
    ```
@@ -263,8 +263,8 @@ Then login at `http://localhost:3000/login`
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | React 18.2, React Router 6.11, Axios 1.4 |
-| Backend | Node.js, Express.js, MongoDB, Mongoose |
+| client | React 18.2, React Router 6.11, Axios 1.4 |
+| server | Node.js, Express.js, MongoDB, Mongoose |
 | Authentication | JWT (JSON Web Tokens) |
 | Password Security | bcryptjs |
 | API Communication | REST with CORS |
@@ -320,6 +320,7 @@ All files have been created and are ready for:
 2. Configuration and setup
 3. Database initialization
 4. API testing with Postman
-5. Frontend development and testing
+5. client development and testing
 
 For step-by-step instructions, refer to `STARTUP_GUIDE.md`
+

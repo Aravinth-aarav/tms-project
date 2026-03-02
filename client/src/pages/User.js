@@ -1,10 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import {
-  userService,
-  departmentService,
-  programmeService,
-} from "../services/api";
+import { userService } from "../services/api";
 import { toast } from "react-hot-toast";
 import "./User.css";
 

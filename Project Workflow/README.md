@@ -6,8 +6,8 @@ A comprehensive complaint management system built with the MERN stack (MongoDB, 
 
 ## Technology Stack
 
-- **Frontend**: React 18.2.0, React Router DOM (located in `/client`)
-- **Backend**: Node.js, Express.js (located in `/server`)
+- **client**: React 18.2.0, React Router DOM (located in `/client`)
+- **server**: Node.js, Express.js (located in `/server`)
 - **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens)
 - **Password Hashing**: bcryptjs
@@ -76,9 +76,9 @@ TMS-TEST-PROJECT/
 
 ## Installation
 
-### Server Setup (formerly Backend)
+### Server Setup (formerly server)
 
-1. Navigate to backend directory:
+1. Navigate to server directory:
 
    ```bash
    cd server
@@ -104,9 +104,9 @@ TMS-TEST-PROJECT/
    ```
    The server will run on `http://localhost:5000`
 
-### Client Setup (formerly Frontend)
+### Client Setup (formerly client)
 
-1. Navigate to frontend directory:
+1. Navigate to client directory:
 
    ```bash
    cd client
@@ -240,13 +240,13 @@ TMS-TEST-PROJECT/
 - **Password Hashing**: Bcryptjs for password encryption
 - **Role-Based Access Control**: SuperAdmin role for master screen access
 - **Authorization Middleware**: Protects sensitive endpoints
-- **CORS**: Configured for frontend-backend communication
+- **CORS**: Configured for client-server communication
 
 ## Creating SuperAdmin User with Postman
 
 See [POSTMAN_SETUP.md](./POSTMAN_SETUP.md) for detailed instructions.
 
-## Frontend Features
+## client Features
 
 - **Login Screen**: JWT token-based authentication
 - **Protected Routes**: Routes protected by authentication and role
@@ -265,7 +265,7 @@ See [POSTMAN_SETUP.md](./POSTMAN_SETUP.md) for detailed instructions.
 
 ## Environment Variables
 
-Backend `.env` file should contain:
+server `.env` file should contain:
 
 ```
 MONGODB_URI=mongodb://localhost:27017/tms-complaints
@@ -278,3 +278,4 @@ NODE_ENV=development
 ## License
 
 ISC
+

@@ -15,7 +15,7 @@ TMS-PROJECT/
 ├── 📄 PROJECT_COMPLETE.md                # Project completion summary
 ├── 📄 FILE_STRUCTURE.md                  # This file
 │
-├── server/                               # Node.js Backend
+├── server/                               # Node.js server
 │   ├── 📄 server.js                      # Main server file
 │   ├── 📄 package.json                   # Dependencies and scripts
 │   ├── 📄 .env.example                   # Environment template
@@ -54,7 +54,7 @@ TMS-PROJECT/
 │       ├── 📄 roleRoutes.js              # Role endpoints
 │       └── 📄 userRoutes.js              # User endpoints
 │
-└── client/                                # React Frontend
+└── client/                                # React client
     ├── 📄 package.json                   # Dependencies and scripts
     ├── 📄 .gitignore                     # Git ignore rules
     │
@@ -94,7 +94,7 @@ TMS-PROJECT/
 
 ## File Statistics
 
-### Backend
+### server
 
 - **Total Files**: 28
 - **Configuration**: 3 files (.env.example, package.json, .gitignore)
@@ -105,7 +105,7 @@ TMS-PROJECT/
 - **Config**: 1 file
 - **Server**: 1 file
 
-### Frontend
+### client
 
 - **Total Files**: 16
 - **Configuration**: 2 files (package.json, .gitignore)
@@ -221,7 +221,7 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 
 ---
 
-## Frontend Routes
+## client Routes
 
 | Path         | Component      | Public | Protected | SuperAdmin |
 | ------------ | -------------- | ------ | --------- | ---------- |
@@ -240,11 +240,11 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 
 | Layer      | Technology        | Version |
 | ---------- | ----------------- | ------- |
-| Frontend   | React             | 18.2.0  |
-| Frontend   | React Router      | 6.11.0  |
-| Frontend   | Axios             | 1.4.0   |
-| Backend    | Node.js           | v14+    |
-| Backend    | Express           | 4.18.2  |
+| client   | React             | 18.2.0  |
+| client   | React Router      | 6.11.0  |
+| client   | Axios             | 1.4.0   |
+| server    | Node.js           | v14+    |
+| server    | Express           | 4.18.2  |
 | Database   | MongoDB           | 4.0+    |
 | Database   | Mongoose          | 7.0.0   |
 | Security   | bcryptjs          | 2.4.3   |
@@ -274,7 +274,7 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
    # Install Postman from postman.com
    ```
 
-2. **Backend Setup**
+2. **server Setup**
 
    ```bash
    cd server
@@ -283,7 +283,7 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
    npm run dev
    ```
 
-3. **Frontend Setup**
+3. **client Setup**
 
    ```bash
    cd client
@@ -303,8 +303,8 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 
 ## Project Completion Status
 
-✅ **Backend**: Complete
-✅ **Frontend**: Complete
+✅ **server**: Complete
+✅ **client**: Complete
 ✅ **Database**: Schema defined
 ✅ **Authentication**: JWT implemented
 ✅ **Authorization**: RBAC implemented
@@ -369,3 +369,4 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 ---
 
 **Everything is ready to use! Start with STARTUP_GUIDE.md for step-by-step instructions.**
+

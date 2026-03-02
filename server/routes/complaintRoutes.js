@@ -31,3 +31,4 @@ router.delete("/:id", auth, complaintController.deleteComplaint);
 router.get("/report", auth, complaintController.generateReport);
 
 module.exports = router;
+

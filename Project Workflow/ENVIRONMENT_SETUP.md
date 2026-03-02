@@ -1,19 +1,19 @@
 # Environment Setup Instructions
 
-## Backend Environment Setup
+## server Environment Setup
 
 ### 1. Create `.env` file
 
-Navigate to the `backend` folder and create a `.env` file:
+Navigate to the `server` folder and create a `.env` file:
 
 ```bash
-cd backend
+cd server
 cp .env.example .env
 ```
 
 ### 2. Configure `.env`
 
-Edit `backend/.env` and set these values:
+Edit `server/.env` and set these values:
 
 ```env
 # MongoDB Connection
@@ -43,14 +43,14 @@ JWT_EXPIRY=7d
 
 ---
 
-## Frontend Configuration
+## client Configuration
 
-The frontend automatically uses:
+The client automatically uses:
 - **API Base URL**: `http://localhost:5000/api`
 - **Token Storage**: Browser's localStorage
-- **CORS**: Enabled from backend
+- **CORS**: Enabled from server
 
-No `.env` file needed for frontend development. To change the API base URL, edit `frontend/src/services/api.js`:
+No `.env` file needed for client development. To change the API base URL, edit `client/src/services/api.js`:
 
 ```javascript
 const API_BASE_URL = 'http://localhost:5000/api'; // Change this line
@@ -139,10 +139,10 @@ npm install -g npm@latest
 
 ## Installation Steps
 
-### 1. Backend Setup
+### 1. server Setup
 
 ```bash
-cd backend
+cd server
 
 # Install dependencies
 npm install
@@ -158,10 +158,10 @@ npm run dev
 
 You should see: `Server running on port 5000`
 
-### 2. Frontend Setup
+### 2. client Setup
 
 ```bash
-cd frontend
+cd client
 
 # Install dependencies
 npm install
@@ -274,7 +274,7 @@ npm install
 **Solution**:
 1. Ensure Bearer token is in Authorization header
 2. Check token is not expired
-3. Verify JWT_SECRET matches in backend
+3. Verify JWT_SECRET matches in server
 
 ---
 
@@ -287,22 +287,22 @@ npm install
    mongod  # or use service manager
    ```
 
-2. **Terminal 2 - Backend**
+2. **Terminal 2 - server**
    ```bash
-   cd backend
+   cd server
    npm run dev
    ```
 
-3. **Terminal 3 - Frontend**
+3. **Terminal 3 - client**
    ```bash
-   cd frontend
+   cd client
    npm start
    ```
 
 ### Making Changes
 
-- **Backend**: Changes auto-reload with nodemon
-- **Frontend**: Changes auto-reload with react-scripts
+- **server**: Changes auto-reload with nodemon
+- **client**: Changes auto-reload with react-scripts
 - **Database**: No restart needed for schema changes
 
 ### Testing API
@@ -327,9 +327,9 @@ Use Postman for API testing with stored tokens.
 
 3. **Use MongoDB Atlas** instead of local MongoDB
 
-4. **Build Frontend**
+4. **Build client**
    ```bash
-   cd frontend
+   cd client
    npm run build
    ```
 
@@ -343,7 +343,7 @@ Use Postman for API testing with stored tokens.
 
 ## Docker Setup (Optional)
 
-Create `backend/Dockerfile`:
+Create `server/Dockerfile`:
 ```dockerfile
 FROM node:18
 WORKDIR /app
@@ -362,19 +362,19 @@ services:
     image: mongo:6
     ports:
       - "27017:27017"
-  backend:
-    build: ./backend
+  server:
+    build: ./server
     ports:
       - "5000:5000"
     environment:
       MONGODB_URI: mongodb://mongodb:27017/tms-complaints
     depends_on:
       - mongodb
-  frontend:
+  client:
     image: node:18
     working_dir: /app
     volumes:
-      - ./frontend:/app
+      - ./client:/app
     ports:
       - "3000:3000"
     command: npm start
@@ -391,10 +391,10 @@ docker-compose up
 
 - [ ] MongoDB is running
 - [ ] Node.js and npm installed
-- [ ] Backend `.env` configured
+- [ ] server `.env` configured
 - [ ] Dependencies installed
-- [ ] Backend server starts on port 5000
-- [ ] Frontend starts on port 3000
+- [ ] server server starts on port 5000
+- [ ] client starts on port 3000
 - [ ] Can access `http://localhost:3000`
 - [ ] Can login with SuperAdmin credentials
 - [ ] Can access master screens as SuperAdmin
@@ -413,11 +413,12 @@ If you encounter issues:
 
 ```bash
 # Full reset
-rm -rf backend/node_modules frontend/node_modules
-npm install --prefix backend
-npm install --prefix frontend
+rm -rf server/node_modules client/node_modules
+npm install --prefix server
+npm install --prefix client
 ```
 
 ---
 
 **Ready to develop!** Start all three terminals and begin building features.
+

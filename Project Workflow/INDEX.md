@@ -21,11 +21,11 @@
 
 ---
 
-## 🎛️ Backend Files (28 Files)
+## 🎛️ server Files (28 Files)
 
 ### Root Level (4 Files)
 ```
-backend/
+server/
 ├── server.js              - Main Express server
 ├── package.json           - Dependencies and scripts
 ├── .env.example           - Environment template
@@ -82,11 +82,11 @@ routes/
 
 ---
 
-## ⚛️ Frontend Files (16 Files)
+## ⚛️ client Files (16 Files)
 
 ### Root Level (1 File)
 ```
-frontend/
+client/
 ├── package.json           - Dependencies and scripts
 └── .gitignore             - Git ignore rules
 ```
@@ -147,17 +147,17 @@ pages/
 | Category | Count | Location |
 |----------|-------|----------|
 | Documentation | 9 | Root |
-| Backend Core | 4 | backend/ |
-| Backend Config | 1 | backend/config/ |
-| Backend Models | 6 | backend/models/ |
-| Backend Middleware | 2 | backend/middleware/ |
-| Backend Controllers | 7 | backend/controllers/ |
-| Backend Routes | 7 | backend/routes/ |
-| Frontend Root | 5 | frontend/src/ |
-| Frontend Components | 2 | frontend/src/components/ |
-| Frontend Context | 1 | frontend/src/context/ |
-| Frontend Services | 1 | frontend/src/services/ |
-| Frontend Pages | 10 | frontend/src/pages/ |
+| server Core | 4 | server/ |
+| server Config | 1 | server/config/ |
+| server Models | 6 | server/models/ |
+| server Middleware | 2 | server/middleware/ |
+| server Controllers | 7 | server/controllers/ |
+| server Routes | 7 | server/routes/ |
+| client Root | 5 | client/src/ |
+| client Components | 2 | client/src/components/ |
+| client Context | 1 | client/src/context/ |
+| client Services | 1 | client/src/services/ |
+| client Pages | 10 | client/src/pages/ |
 | **TOTAL** | **60+** | **All** |
 
 ---
@@ -177,7 +177,7 @@ TMS-TEST-PROJECT/
 ├── 📄 FILE_STRUCTURE.md
 ├── 📄 INDEX.md                         ← You are here
 │
-├── 📁 backend/
+├── 📁 server/
 │   ├── 📄 server.js
 │   ├── 📄 package.json
 │   ├── 📄 .env.example
@@ -216,7 +216,7 @@ TMS-TEST-PROJECT/
 │       ├── 📄 roleRoutes.js
 │       └── 📄 userRoutes.js
 │
-└── 📁 frontend/
+└── 📁 client/
     ├── 📄 package.json
     ├── 📄 .gitignore
     │
@@ -259,40 +259,40 @@ TMS-TEST-PROJECT/
 ### By Purpose
 
 #### Authentication Files
-- `backend/middleware/auth.js`
-- `backend/middleware/roleCheck.js`
-- `backend/controllers/authController.js`
-- `backend/routes/authRoutes.js`
-- `frontend/context/AuthContext.js`
-- `frontend/pages/LoginPage.js`
+- `server/middleware/auth.js`
+- `server/middleware/roleCheck.js`
+- `server/controllers/authController.js`
+- `server/routes/authRoutes.js`
+- `client/context/AuthContext.js`
+- `client/pages/LoginPage.js`
 
 #### Database Files
-- `backend/config/database.js`
-- `backend/models/*.js` (6 files)
+- `server/config/database.js`
+- `server/models/*.js` (6 files)
 
 #### API Files
-- `backend/controllers/*.js` (7 files)
-- `backend/routes/*.js` (7 files)
-- `frontend/services/api.js`
+- `server/controllers/*.js` (7 files)
+- `server/routes/*.js` (7 files)
+- `client/services/api.js`
 
 #### UI Files
-- `frontend/pages/*.js` (8 files)
-- `frontend/components/*.js` (2 files)
-- `frontend/pages/*.css` (3 files)
-- `frontend/components/*.css` (1 file)
+- `client/pages/*.js` (8 files)
+- `client/components/*.js` (2 files)
+- `client/pages/*.css` (3 files)
+- `client/components/*.css` (1 file)
 
 #### Configuration Files
-- `backend/.env.example`
-- `backend/package.json`
-- `frontend/package.json`
-- `backend/.gitignore`
-- `frontend/.gitignore`
+- `server/.env.example`
+- `server/package.json`
+- `client/package.json`
+- `server/.gitignore`
+- `client/.gitignore`
 
 ---
 
 ## 📝 File Dependencies
 
-### Frontend Dependencies
+### client Dependencies
 ```
 App.js
 ├── Navbar.js
@@ -303,7 +303,7 @@ App.js
 └── services/api.js (for API calls)
 ```
 
-### Backend Dependencies
+### server Dependencies
 ```
 server.js
 ├── config/database.js (MongoDB)
@@ -320,19 +320,19 @@ server.js
 ## 🔍 Finding Files
 
 **Need to understand authentication?**
-→ Start with `frontend/context/AuthContext.js`, then `backend/middleware/auth.js`
+→ Start with `client/context/AuthContext.js`, then `server/middleware/auth.js`
 
 **Need to understand database?**
-→ Start with `backend/models/`, then `backend/config/database.js`
+→ Start with `server/models/`, then `server/config/database.js`
 
 **Need to understand API endpoints?**
-→ Start with `backend/routes/`, then `backend/controllers/`
+→ Start with `server/routes/`, then `server/controllers/`
 
 **Need to understand UI?**
-→ Start with `frontend/src/App.js`, then `frontend/src/pages/`
+→ Start with `client/src/App.js`, then `client/src/pages/`
 
 **Need to understand data flow?**
-→ Start with `frontend/services/api.js`
+→ Start with `client/services/api.js`
 
 ---
 
@@ -354,8 +354,8 @@ server.js
 
 ## ✅ Completion Checklist
 
-- [x] All backend files created
-- [x] All frontend files created
+- [x] All server files created
+- [x] All client files created
 - [x] All documentation created
 - [x] All models defined
 - [x] All controllers implemented
@@ -365,7 +365,7 @@ server.js
 - [x] Authentication system ready
 - [x] Database schema ready
 - [x] API endpoints ready
-- [x] Frontend UI ready
+- [x] client UI ready
 - [x] Documentation complete
 
 ---
@@ -383,3 +383,4 @@ Generated: February 4, 2026
 Status: ✅ Complete
 Total Files: 60+
 Total Lines of Code: 5000+
+

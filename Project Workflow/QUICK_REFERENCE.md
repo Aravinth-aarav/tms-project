@@ -2,7 +2,7 @@
 
 ## Core Commands
 
-### Backend
+### server
 
 ```bash
 cd server
@@ -10,7 +10,7 @@ npm install          # First time setup
 npm run dev          # Start development server
 ```
 
-### Frontend
+### client
 
 ```bash
 cd client
@@ -45,7 +45,7 @@ npm start            # Start development server
 - **Password**: SuperAdmin@123
 - **Role**: SuperAdmin
 
-## Frontend Routes
+## client Routes
 
 | Path           | Component  | Access     |
 | -------------- | ---------- | ---------- |
@@ -78,7 +78,7 @@ npm start            # Start development server
 
 ## Environment Setup
 
-### Backend `.env`
+### server `.env`
 
 ```
 MONGODB_URI=mongodb://localhost:27017/tms-complaints
@@ -88,15 +88,15 @@ JWT_EXPIRY=7d
 NODE_ENV=development
 ```
 
-### Frontend (Automatic)
+### client (Automatic)
 
 - API Base: `http://localhost:5000/api`
 - Token Storage: localStorage
 
 ## Important Notes
 
-1. MongoDB must be running before starting backend
-2. Backend must be running before starting frontend
+1. MongoDB must be running before starting server
+2. server must be running before starting client
 3. Only SuperAdmin can access master screens
 4. JWT tokens expire in 7 days (configurable)
 5. Passwords are hashed using bcryptjs
@@ -109,7 +109,7 @@ NODE_ENV=development
 | MongoDB connection failed | Start MongoDB service               |
 | Port 5000 in use          | Kill process or change PORT in .env |
 | Port 3000 in use          | Run `PORT=3001 npm start`           |
-| CORS errors               | Ensure backend is running           |
+| CORS errors               | Ensure server is running           |
 | Login fails               | Check email and password            |
 | No departments showing    | Create one first as SuperAdmin      |
 
@@ -135,7 +135,7 @@ Content-Type: application/json
 
 ```
 TMS-TEST-PROJECT/
-├── server/             # Node.js/Express backend
+├── server/             # Node.js/Express server
 │   ├── config/         # Configuration files
 │   ├── controllers/    # Business logic
 │   ├── middleware/     # Auth & role checking
@@ -143,7 +143,7 @@ TMS-TEST-PROJECT/
 │   ├── routes/         # API routes
 │   └── server.js       # Entry point
 │
-└── client/           # React frontend
+└── client/           # React client
     ├── public/         # Static files
     └── src/
         ├── components/ # React components
@@ -163,3 +163,4 @@ TMS-TEST-PROJECT/
 ---
 
 For detailed information, refer to the respective documentation files.
+

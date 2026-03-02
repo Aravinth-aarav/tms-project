@@ -26,3 +26,4 @@ const programmeSchema = new mongoose.Schema(
 programmeSchema.index({ name: 1, department: 1 }, { unique: true });
 
 module.exports = mongoose.model("Programme", programmeSchema);
+

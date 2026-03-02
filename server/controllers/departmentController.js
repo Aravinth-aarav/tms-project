@@ -77,3 +77,4 @@ exports.deleteDepartment = async (req, res) => {
       .json({ message: "Failed to delete department", error: error.message });
   }
 };
+

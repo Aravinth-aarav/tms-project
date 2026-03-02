@@ -19,21 +19,21 @@ Welcome to the TMS (Complaint Management System) project! This is a complete MER
    mongod  # or use your system's method to start MongoDB
    ```
 
-2. **Start Backend** (in a new terminal)
+2. **Start server** (in a new terminal)
    ```bash
-   cd backend
+   cd server
    npm install
    npm run dev
    ```
-   ✓ Backend runs on http://localhost:5000
+   ✓ server runs on http://localhost:5000
 
-3. **Start Frontend** (in another terminal)
+3. **Start client** (in another terminal)
    ```bash
-   cd frontend
+   cd client
    npm install
    npm start
    ```
-   ✓ Frontend runs on http://localhost:3000
+   ✓ client runs on http://localhost:3000
 
 4. **Create SuperAdmin User**
    - Use Postman to POST to `http://localhost:5000/api/auth/register`
@@ -95,14 +95,14 @@ Welcome to the TMS (Complaint Management System) project! This is a complete MER
 
 ## 🎯 What's Included
 
-### ✅ Backend (Node.js + Express + MongoDB)
+### ✅ server (Node.js + Express + MongoDB)
 - Complete REST API with 6 modules
 - JWT authentication
 - Role-based access control
 - Database models for all master screens
 - Error handling and validation
 
-### ✅ Frontend (React + React Router)
+### ✅ client (React + React Router)
 - Login screen with JWT authentication
 - 8 pages (Home + 6 Master Screens + Login)
 - Role-based navigation
@@ -127,8 +127,8 @@ Welcome to the TMS (Complaint Management System) project! This is a complete MER
 
 ```
 TMS-TEST-PROJECT/
-├── backend/              (Node.js server)
-├── frontend/             (React app)
+├── server/              (Node.js server)
+├── client/             (React app)
 ├── README.md             (Full documentation)
 ├── STARTUP_GUIDE.md      (Setup instructions) ⭐
 ├── POSTMAN_SETUP.md      (API testing)
@@ -218,7 +218,7 @@ See [README.md](./README.md) for complete endpoint details.
 | Port 5000 in use | Kill process or change PORT in .env |
 | npm modules error | Delete node_modules and run npm install |
 | Can't login | Check email and password are correct |
-| CORS errors | Ensure backend is running |
+| CORS errors | Ensure server is running |
 
 For detailed troubleshooting, see [STARTUP_GUIDE.md#troubleshooting](./STARTUP_GUIDE.md#troubleshooting)
 
@@ -259,8 +259,8 @@ See [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md#production-deployment) for dep
 
 - **Files Created**: 50+
 - **Lines of Code**: 5000+
-- **Backend Endpoints**: 28
-- **Frontend Pages**: 8
+- **server Endpoints**: 28
+- **client Pages**: 8
 - **Database Collections**: 6
 - **Documentation Files**: 7
 
@@ -334,3 +334,4 @@ Everything is set up and ready to use. Start with [STARTUP_GUIDE.md](./STARTUP_G
 - [📚 File Structure](./FILE_STRUCTURE.md)
 - [✅ Project Complete](./PROJECT_COMPLETE.md)
 - [⚡ Quick Reference](./QUICK_REFERENCE.md)
+

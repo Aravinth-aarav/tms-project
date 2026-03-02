@@ -29,3 +29,4 @@ const roomSchema = new mongoose.Schema(
 roomSchema.index({ roomNumber: 1, block: 1 }, { unique: true });
 
 module.exports = mongoose.model("Room", roomSchema);
+

@@ -6,37 +6,6 @@ import "./Home.css";
 const Home = () => {
   const { user, isAuthenticated } = useContext(AuthContext);
 
-  const adminStats = [
-    {
-      label: "Active Users",
-      value: "24",
-      icon: "👥",
-      trend: "+12%",
-      color: "blue",
-    },
-    {
-      label: "Pending Issues",
-      value: "08",
-      icon: "⏳",
-      trend: "-2%",
-      color: "amber",
-    },
-    {
-      label: "Resolved Today",
-      value: "15",
-      icon: "✅",
-      trend: "+5%",
-      color: "green",
-    },
-    {
-      label: "System Health",
-      value: "99%",
-      icon: "🛡️",
-      trend: "Stable",
-      color: "indigo",
-    },
-  ];
-
   const adminLinks = [
     {
       to: "/departments",

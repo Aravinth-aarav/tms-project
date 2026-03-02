@@ -13,7 +13,7 @@ All files have been successfully created and the project is ready for immediate 
 
 ## 📦 WHAT HAS BEEN DELIVERED
 
-### 1. Backend (Node.js + Express + MongoDB)
+### 1. server (Node.js + Express + MongoDB)
 ```
 Status: ✅ COMPLETE
 Files: 28
@@ -26,7 +26,7 @@ Files: 28
 - 4 Configuration files (package.json, .env.example, .gitignore, etc)
 ```
 
-### 2. Frontend (React + React Router + Axios)
+### 2. client (React + React Router + Axios)
 ```
 Status: ✅ COMPLETE
 Files: 16
@@ -94,7 +94,7 @@ Files: 11
 ✅ Database relationships
 ✅ Health check endpoint
 
-### Frontend Features
+### client Features
 ✅ Clean, responsive UI
 ✅ Role-aware navigation
 ✅ Form validation
@@ -108,9 +108,9 @@ Files: 11
 
 ### Step 1: Install Dependencies
 ```bash
-cd backend
+cd server
 npm install
-cd ../frontend
+cd ../client
 npm install
 ```
 
@@ -119,15 +119,15 @@ npm install
 mongod
 ```
 
-### Step 3: Start Backend
+### Step 3: Start server
 ```bash
-cd backend
+cd server
 npm run dev
 ```
 
-### Step 4: Start Frontend
+### Step 4: Start client
 ```bash
-cd frontend
+cd client
 npm start
 ```
 
@@ -153,7 +153,7 @@ Visit http://localhost:3000/login and login with your credentials
 
 ```
 TMS-TEST-PROJECT/
-├── backend/                    (28 files)
+├── server/                    (28 files)
 │   ├── server.js
 │   ├── package.json
 │   ├── .env.example
@@ -163,7 +163,7 @@ TMS-TEST-PROJECT/
 │   ├── routes/
 │   └── middleware/
 │
-├── frontend/                   (16 files)
+├── client/                   (16 files)
 │   ├── package.json
 │   ├── public/
 │   └── src/
@@ -195,8 +195,8 @@ TMS-TEST-PROJECT/
 | Metric | Value |
 |--------|-------|
 | Total Files | 60+ |
-| Backend Files | 28 |
-| Frontend Files | 16 |
+| server Files | 28 |
+| client Files | 16 |
 | Documentation Files | 11 |
 | Database Collections | 6 |
 | API Endpoints | 28 |
@@ -210,13 +210,13 @@ TMS-TEST-PROJECT/
 
 ## 🔗 TECHNOLOGY STACK
 
-**Frontend:**
+**client:**
 - React 18.2.0
 - React Router DOM 6.11.0
 - Axios 1.4.0
 - JavaScript (ES6+)
 
-**Backend:**
+**server:**
 - Node.js v14+
 - Express.js 4.18.2
 - MongoDB 4.0+
@@ -250,7 +250,7 @@ TMS-TEST-PROJECT/
 
 ---
 
-## 🎨 FRONTEND ROUTES
+## 🎨 client ROUTES
 
 | Route | Component | Access |
 |-------|-----------|--------|
@@ -296,11 +296,11 @@ All collections include:
 ✅ **Access Control**
 - Role-based access control (RBAC)
 - Protected API routes
-- Protected frontend routes
+- Protected client routes
 
 ✅ **Data Validation**
-- Input validation on backend
-- Form validation on frontend
+- Input validation on server
+- Form validation on client
 - Request validation middleware
 
 ---
@@ -422,8 +422,8 @@ Each documentation file includes:
 
 ## ✅ VERIFICATION CHECKLIST
 
-- [x] All backend files created
-- [x] All frontend files created
+- [x] All server files created
+- [x] All client files created
 - [x] All database schemas defined
 - [x] All API endpoints implemented
 - [x] All middleware configured
@@ -460,19 +460,19 @@ Each documentation file includes:
 
 ### Development Workflow
 1. Start MongoDB
-2. Start Backend (npm run dev)
-3. Start Frontend (npm start)
+2. Start server (npm run dev)
+3. Start client (npm start)
 4. Make changes → Auto-reload
 5. Test with Postman
 6. Push to git
 
 ### Deployment Workflow
-1. Build frontend (npm run build)
+1. Build client (npm run build)
 2. Configure .env
 3. Upload to hosting
 4. Setup MongoDB Atlas
-5. Deploy backend
-6. Deploy frontend
+5. Deploy server
+6. Deploy client
 
 ---
 
@@ -585,3 +585,4 @@ Simply follow the STARTUP_GUIDE.md and you'll be running in 30 minutes!
 - [README →](./README.md)
 - [POSTMAN GUIDE →](./POSTMAN_SETUP.md)
 - [QUICK REFERENCE →](./QUICK_REFERENCE.md)
+

@@ -96,3 +96,4 @@ exports.deleteUser = async (req, res) => {
       .json({ message: "Failed to delete user", error: error.message });
   }
 };
+

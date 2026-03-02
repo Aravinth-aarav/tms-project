@@ -166,7 +166,7 @@ const ComplaintForm = () => {
       formData.append("complaintType", type);
       formData.append("remarks", remarks);
       if (attachment) formData.append("attachment", attachment);
-      // user details come from token (backend should use req.user)
+      // user details come from token (server should use req.user)
       // but include user id here as convenience
       if (user?.id) formData.append("userId", user.id);
 
@@ -317,3 +317,4 @@ const ComplaintForm = () => {
 };
 
 export default ComplaintForm;
+

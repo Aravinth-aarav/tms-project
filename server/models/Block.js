@@ -24,3 +24,4 @@ const blockSchema = new mongoose.Schema(
 blockSchema.index({ name: 1, department: 1, programme: 1 }, { unique: true });
 
 module.exports = mongoose.model("Block", blockSchema);
+

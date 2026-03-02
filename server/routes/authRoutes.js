@@ -9,3 +9,4 @@ router.post('/login', authController.login);
 router.get('/profile', authMiddleware, authController.getProfile);
 
 module.exports = router;
+

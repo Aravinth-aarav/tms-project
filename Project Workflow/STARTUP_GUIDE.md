@@ -31,10 +31,10 @@ mongod
 
 MongoDB will run on `mongodb://localhost:27017` by default.
 
-### Step 2: Start Server (formerly backend)
+### Step 2: Start Server (formerly server)
 
 1. Open a terminal/command prompt
-2. Navigate to the backend directory:
+2. Navigate to the server directory:
 
    ```bash
    cd server
@@ -106,10 +106,10 @@ MongoDB will run on `mongodb://localhost:27017` by default.
 
 5. Send the request and note the token from the response
 
-### Step 4: Start Client (formerly frontend)
+### Step 4: Start Client (formerly client)
 
 1. Open another terminal/command prompt
-2. Navigate to the frontend directory:
+2. Navigate to the client directory:
 
    ```bash
    cd client
@@ -213,7 +213,7 @@ Headers: Authorization: Bearer <token>
 
 ### Port 3000 Already in Use
 
-- Change port in frontend or kill the process:
+- Change port in client or kill the process:
   ```bash
   # Set custom port:
   PORT=3001 npm start
@@ -221,8 +221,8 @@ Headers: Authorization: Bearer <token>
 
 ### CORS Errors
 
-- Ensure backend is running on `http://localhost:5000`
-- Check that frontend API calls use correct backend URL
+- Ensure server is running on `http://localhost:5000`
+- Check that client API calls use correct server URL
 
 ### Dependencies Issues
 
@@ -274,3 +274,4 @@ TMS-TEST-PROJECT/
 
 For detailed API documentation, see [README.md](./README.md)
 For Postman setup details, see [POSTMAN_SETUP.md](./POSTMAN_SETUP.md)
+

@@ -363,3 +363,4 @@ exports.generateReport = async (req, res) => {
       .json({ message: "Failed to generate report", error: error.message });
   }
 };
+

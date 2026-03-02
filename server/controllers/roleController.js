@@ -75,3 +75,4 @@ exports.deleteRole = async (req, res) => {
       .json({ message: "Failed to delete role", error: error.message });
   }
 };
+
