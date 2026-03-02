@@ -95,6 +95,19 @@ const ComplaintsDashboard = () => {
     }
   };
 
+  const getReporterColor = (name) => {
+    const colors = [
+      { bg: "#e0e7ff", text: "#1e40af", border: "#bfdbfe" }, // Indigo
+      { bg: "#f0fdf4", text: "#15803d", border: "#bbf7d0" }, // Green
+      { bg: "#fff7ed", text: "#9a3412", border: "#fed7aa" }, // Orange
+      { bg: "#faf5ff", text: "#6b21a8", border: "#e9d5ff" }, // Purple
+      { bg: "#fdf2f8", text: "#9d174d", border: "#fbcfe8" }, // Pink
+    ];
+    if (!name) return colors[0];
+    const charCode = name.charCodeAt(0) + name.length;
+    return colors[charCode % colors.length];
+  };
+
   const getStatusBadgeClass = (status) => {
     switch (status) {
       case "Pending":
@@ -171,9 +184,7 @@ const ComplaintsDashboard = () => {
           <div className="table-header">
             <h2>Active Complaints</h2>
             <div className="table-filters">
-              <span className="filter-chip active">All</span>
-              <span className="filter-chip">High Priority</span>
-              <span className="filter-chip">Recent</span>
+              <span className="filter-chip active">All Activities</span>
             </div>
           </div>
           {listLoading ? (
@@ -186,6 +197,7 @@ const ComplaintsDashboard = () => {
                 <thead>
                   <tr>
                     <th>Date</th>
+                    <th>Dept / Prog</th>
                     <th>Block / Room</th>
                     <th>Type</th>
                     <th>Remarks</th>
@@ -207,12 +219,20 @@ const ComplaintsDashboard = () => {
                         <tr key={c._id}>
                           <td>{new Date(c.createdAt).toLocaleDateString()}</td>
                           <td>
+                            <div className="dept-text">
+                              {c.departmentName || "-"}
+                            </div>
+                            <div className="sub-text">
+                              {c.programmeName || "-"}
+                            </div>
+                          </td>
+                          <td>
                             <strong>{c.blockName}</strong>
                             <br />
                             <span
                               style={{ fontSize: "0.85em", color: "#64748b" }}
                             >
-                              {c.roomNumber}
+                              Room {c.roomNumber}
                             </span>
                           </td>
                           <td>{c.complaintType}</td>
@@ -227,7 +247,24 @@ const ComplaintsDashboard = () => {
                             </span>
                           </td>
                           <td>
-                            {c.createdBy?.username || c.createdBy?.email || "-"}
+                            <span
+                              className="reporter-badge"
+                              style={{
+                                background: getReporterColor(
+                                  c.createdBy?.username || c.createdBy?.email,
+                                ).bg,
+                                color: getReporterColor(
+                                  c.createdBy?.username || c.createdBy?.email,
+                                ).text,
+                                borderColor: getReporterColor(
+                                  c.createdBy?.username || c.createdBy?.email,
+                                ).border,
+                              }}
+                            >
+                              {c.createdBy?.username ||
+                                c.createdBy?.email ||
+                                "-"}
+                            </span>
                           </td>
                           <td>
                             {c.assignedTo ? (
@@ -245,13 +282,13 @@ const ComplaintsDashboard = () => {
                             <div className="attachment-cell">
                               {c.attachment ? (
                                 <a
-                                  href={`http://localhost:5000${c.attachment}`}
+                                  href={`https://tms-project-su5o.onrender.com${c.attachment}`}
                                   target="_blank"
                                   rel="noreferrer"
                                   className="attachment-preview"
                                   title="View Attachment"
                                 >
-                                  📄 Open
+                                  📄 View File
                                 </a>
                               ) : (
                                 <span className="no-file">None</span>
@@ -353,4 +390,3 @@ const ComplaintsDashboard = () => {
 };
 
 export default ComplaintsDashboard;
-

@@ -203,6 +203,12 @@ const Reports = () => {
                 {results.filter((r) => r.status === "Pending").length}
               </span>
             </div>
+            <div className="stat-pill assigned">
+              <span className="stat-label">Assigned:</span>
+              <span className="stat-value">
+                {results.filter((r) => r.status === "Assigned").length}
+              </span>
+            </div>
             <div className="stat-pill success">
               <span className="stat-label">Completed:</span>
               <span className="stat-value">

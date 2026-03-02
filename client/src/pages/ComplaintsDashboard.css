@@ -272,10 +272,10 @@
 }
 
 .complaints-table th {
-  padding: 1.25rem 1.5rem;
+  padding: 0.75rem 1rem;
   text-align: left;
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
@@ -283,11 +283,12 @@
 }
 
 .complaints-table td {
-  padding: 1.5rem;
+  padding: 0.75rem 1rem;
   background-color: transparent;
   border-bottom: 1px solid rgba(226, 232, 240, 0.5);
   color: var(--text-main);
   font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .complaints-table tr:hover td {
@@ -381,11 +382,24 @@
 }
 
 .assign-dropdown {
-  padding: 0.5rem;
-  border-radius: 8px;
-  border: 1px solid var(--glass-border);
+  padding: 0.5rem 1.2em;
+  border-radius: 12px;
+  border: 1px solid #3b82f6;
   font-family: inherit;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 110px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.1);
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.assign-dropdown:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
 .error-banner {
@@ -418,6 +432,31 @@
   background: rgba(239, 68, 68, 0.05);
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
+}
+
+.dept-text {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.sub-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+  font-weight: 500;
+}
+
+.reporter-badge {
+  background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+  color: #1e40af;
+  padding: 0.35rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid #bfdbfe;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(30, 64, 175, 0.05);
 }
 
 .assign-action-container {
@@ -462,4 +501,3 @@
     flex-direction: column;
   }
 }
-

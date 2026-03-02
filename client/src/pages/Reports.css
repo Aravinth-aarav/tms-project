@@ -79,6 +79,12 @@
   border-color: #fde68a;
 }
 
+.stat-pill.assigned {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
 .stat-pill.success {
   background: #f0fdf4;
   color: #15803d;
