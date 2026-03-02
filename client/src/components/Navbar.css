@@ -1,0 +1,352 @@
+/* Global Font Import */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+
+:root {
+  /* Aesthetic Dark Blue / Purple Theme */
+  --sidebar-width: 280px;
+  --sidebar-bg: #0f172a; /* Slate 900 */
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-hover: rgba(255, 255, 255, 0.08); /* White overlay */
+  --sidebar-active: #38bdf8; /* Sky 400 */
+  --text-primary: #f8fafc; /* Slate 50 */
+  --text-secondary: #94a3b8; /* Slate 400 */
+  --accent-gradient: linear-gradient(
+    135deg,
+    #3b82f6 0%,
+    #8b5cf6 100%
+  ); /* Blue to Purple */
+  --glass-effect: blur(12px);
+  --danger-color: #f87171; /* Red 400 */
+  --transition-speed: 0.3s;
+
+  /* Background Color for All Pages */
+  --page-bg: #ffffff; /* Slate 100 - Clean, crisp background */
+}
+
+/* 
+   Hack: Since we can't easily modify App.js structure, we use this global selector 
+   to push the main content. This expects Navbar to be rendered at the top level.
+*/
+body {
+  padding-left: var(--sidebar-width);
+  /* background-color: var(--page-bg); */
+  font-family: "Outfit", sans-serif; /* Modern, geometric font */
+  margin: 0;
+  min-height: 100vh;
+  transition: padding-left var(--transition-speed) ease;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--sidebar-width);
+  background-color: var(--sidebar-bg);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.2);
+  border-right: 1px solid var(--sidebar-border);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+/* === Sidebar Header === */
+.sidebar-header {
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sidebar-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+}
+
+.sidebar-brand {
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Optional logo icon element if you add one */
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--accent-gradient);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+/* === Navigation Links === */
+.sidebar-nav {
+  flex: 1;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nav-group-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin: 1.5rem 0 0.5rem 0.5rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link:hover {
+  background-color: var(--sidebar-hover);
+  color: white;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link:active,
+.nav-link.active {
+  background: var(--accent-gradient); /* Gradient background for active */
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Icon placeholder styles if you add icons later */
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  transition: all 0.3s;
+}
+
+.nav-link:hover .nav-icon,
+.nav-link.active .nav-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* === Sidebar Footer / User Info === */
+.sidebar-footer {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2); /* Darker footer */
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+  border-top: 1px solid var(--sidebar-border);
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    #f472b6,
+    #db2777
+  ); /* Pink gradient avatar */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 0 10px rgba(219, 39, 119, 0.4);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-greeting {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.user-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.logout-btn {
+  background: #ef4444;
+  color: white;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* === Custom Scrollbar === */
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 2.5px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* === Responsive Design (Mobile) === */
+@media (max-width: 768px) {
+  body {
+    padding-left: 0;
+    padding-top: 70px;
+    padding-bottom: 70px; /* For bottom nav if changed */
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 70px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    overflow: hidden;
+    border-right: none;
+    border-bottom: 1px solid var(--sidebar-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Heavier shadow for top bar */
+    z-index: 9999;
+  }
+
+  .sidebar-header {
+    padding: 0 1rem;
+    border-bottom: none;
+    height: 100%;
+    width: auto;
+  }
+
+  .sidebar-header::after {
+    display: none;
+  }
+
+  .sidebar-brand {
+    font-size: 1.4rem;
+  }
+
+  .sidebar-nav {
+    display: none; /* Hide main nav links on mobile for now, or implement a hamburger menu */
+  }
+
+  /* Mobile Warning: Nav links are hidden in this simple logic. 
+     Ideally, you'd add a toggle state for a mobile menu. 
+     Keeping it simple as per instructions "don't touch functions".
+     We will show a simplified horizontal scroll list instead. 
+  */
+  .sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    padding: 0 1rem;
+    overflow-x: auto;
+    align-items: center;
+    height: 100%;
+    gap: 0.5rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .nav-group-label {
+    display: none;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 99px; /* Pill shape */
+    font-size: 0.85rem;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+  /* Add a floating logout button for mobile? Or perhaps in the header */
+}
