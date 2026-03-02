@@ -155,7 +155,7 @@
 
 .permissions-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
   padding: 1rem;
   background: rgba(241, 245, 249, 0.4);
@@ -351,6 +351,7 @@
 @media (max-width: 768px) {
   .role-page {
     padding: 1rem;
+    padding-top: 5rem;
   }
   .role-page-header {
     flex-direction: column;
@@ -358,9 +359,30 @@
     padding: 1.5rem;
     text-align: center;
   }
+  .role-page-header h1 {
+    font-size: 1.5rem;
+  }
   .primary-action-btn {
     width: 100%;
     justify-content: center;
   }
+  .role-form-card {
+    padding: 1.5rem;
+  }
+  .permissions-container {
+    grid-template-columns: 1fr;
+  }
+  .permission-option {
+    padding: 0.75rem;
+  }
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
+@media (max-width: 480px) {
+  .role-page-header h1 {
+    font-size: 1.25rem;
+  }
+}

@@ -30,6 +30,15 @@
   z-index: 1100;
 }
 
+@media (max-width: 768px) {
+  .login-navbar {
+    padding: 1rem 1.5rem;
+  }
+  .navbar-links {
+    display: none; /* Hide individual links on mobile to save space */
+  }
+}
+
 .navbar-logo {
   display: flex;
   align-items: center;
@@ -332,12 +341,20 @@
 /* Responsive specific adjustments */
 @media (max-width: 480px) {
   .login-card {
-    padding: 2rem;
-    width: 90%;
+    padding: 2rem 1.5rem;
+    width: 92%;
   }
 
   .login-card h1 {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.25rem;
   }
 }
-

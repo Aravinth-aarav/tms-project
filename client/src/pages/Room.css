@@ -255,6 +255,7 @@
 @media (max-width: 768px) {
   .room-page {
     padding: 1rem;
+    padding-top: 5rem;
   }
   .room-page-header {
     flex-direction: column;
@@ -262,13 +263,28 @@
     padding: 1.5rem;
     text-align: center;
   }
+  .room-page-header h1 {
+    font-size: 1.5rem;
+  }
   .primary-action-btn {
     width: 100%;
     justify-content: center;
+  }
+  .room-form-card {
+    padding: 1.5rem;
   }
   .form-grid-2 {
     grid-template-columns: 1fr;
     gap: 0;
   }
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
+@media (max-width: 480px) {
+  .room-page-header h1 {
+    font-size: 1.25rem;
+  }
+}

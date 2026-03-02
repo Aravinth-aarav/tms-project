@@ -253,6 +253,7 @@
 @media (max-width: 768px) {
   .master-screen {
     padding: 1rem;
+    padding-top: 5rem;
   }
   .screen-header {
     flex-direction: column;
@@ -260,9 +261,24 @@
     padding: 1.5rem;
     text-align: center;
   }
+  .screen-header h1 {
+    font-size: 1.5rem;
+  }
   .btn-primary {
     width: 100%;
     justify-content: center;
   }
+  .master-form {
+    padding: 1.5rem;
+  }
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
+@media (max-width: 480px) {
+  .screen-header h1 {
+    font-size: 1.25rem;
+  }
+}

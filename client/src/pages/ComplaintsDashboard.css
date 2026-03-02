@@ -486,18 +486,49 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
   .dashboard-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 1.5rem;
+    padding: 1.5rem;
   }
   .stats-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   .table-card {
-    padding: 1.25rem;
+    padding: 1rem;
+  }
+  .table-header {
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: center;
   }
   .action-buttons {
     flex-direction: column;
+    gap: 0.5rem;
+  }
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .header-content h1 {
+    font-size: 1.75rem;
+  }
+  .premium-badge {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .complaints-dashboard {
+    padding-top: 5rem;
+  }
+  .stat-card {
+    padding: 1.25rem;
   }
 }

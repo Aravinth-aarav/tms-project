@@ -247,6 +247,7 @@
 @media (max-width: 768px) {
   .programme-page {
     padding: 1rem;
+    padding-top: 5rem;
   }
   .programme-page-header {
     flex-direction: column;
@@ -254,9 +255,24 @@
     padding: 1.5rem;
     text-align: center;
   }
+  .programme-page-header h1 {
+    font-size: 1.5rem;
+  }
   .primary-action-btn {
     width: 100%;
     justify-content: center;
   }
+  .programme-form-card {
+    padding: 1.5rem;
+  }
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
+@media (max-width: 480px) {
+  .programme-page-header h1 {
+    font-size: 1.25rem;
+  }
+}

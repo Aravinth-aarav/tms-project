@@ -138,6 +138,12 @@
   line-height: 1.6;
 }
 
+@media (max-width: 768px) {
+  .welcome-content h1 {
+    font-size: 2rem;
+  }
+}
+
 .profile-brief {
   display: flex;
   align-items: center;
@@ -445,10 +451,7 @@
     font-size: 2.25rem;
   }
 
-  .phi-grid {
-    grid-template-columns: 1fr;
-  }
-
+  .phi-grid,
   .actions-grid {
     grid-template-columns: 1fr;
   }
@@ -457,11 +460,33 @@
     flex-direction: column;
     text-align: center;
     gap: 1.5rem;
+    padding: 1.5rem;
   }
 
   .profile-brief {
     width: 100%;
     margin-top: 1rem;
+    justify-content: center;
+  }
+
+  .home-page {
+    padding: 1rem;
+  }
+
+  .home-container {
+    margin-top: 1rem;
+  }
+
+  .welcome-header {
+    margin-bottom: 2rem;
   }
 }
 
+@media (max-width: 480px) {
+  .welcome-content h1 {
+    font-size: 1.75rem;
+  }
+  .phi-card {
+    padding: 1.5rem;
+  }
+}
