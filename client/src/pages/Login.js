@@ -10,6 +10,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+  const [showSupport, setShowSupport] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -43,8 +45,12 @@ const Login = () => {
           <span>TMS</span>
         </div>
         <div className="navbar-links">
-          <a href="#about">About</a>
-          <a href="#support">Support</a>
+          <button onClick={() => setShowAbout(true)} className="nav-btn">
+            About
+          </button>
+          <button onClick={() => setShowSupport(true)} className="nav-btn">
+            Support
+          </button>
         </div>
       </nav>
       <div className="login-card">
@@ -142,9 +148,91 @@ const Login = () => {
           Demo: Use SuperAdmin credentials created via Postman
         </p> */}
       </div>
+
+      {/* About Modal */}
+      {showAbout && (
+        <div
+          className="login-modal-overlay"
+          onClick={() => setShowAbout(false)}
+        >
+          <div
+            className="login-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-header">
+              <h2>About TMS</h2>
+              <button
+                className="close-modal"
+                onClick={() => setShowAbout(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>
+                The Ticket Management System (TMS) is a streamlined platform
+                designed to bridge the gap between facility issues and technical
+                resolutions. Our system ensures every complaint is tracked,
+                assigned to the right expert, and resolved with total
+                transparency.
+              </p>
+              <div className="features-list">
+                <div className="feature-item">
+                  <span>🚀</span> Real-time tracking
+                </div>
+                <div className="feature-item">
+                  <span>🔧</span> Expert assignment
+                </div>
+                <div className="feature-item">
+                  <span>📊</span> Detailed reports
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Support Modal */}
+      {showSupport && (
+        <div
+          className="login-modal-overlay"
+          onClick={() => setShowSupport(false)}
+        >
+          <div
+            className="login-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-header">
+              <h2>Technical Support</h2>
+              <button
+                className="close-modal"
+                onClick={() => setShowSupport(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>
+                Need help? Our support team is available to assist you with any
+                technical issues or platform guidance.
+              </p>
+              <div className="support-contact">
+                <div className="contact-info">
+                  <strong>📧 Email:</strong> support@tms.example.com
+                </div>
+                <div className="contact-info">
+                  <strong>📍 Desk:</strong> IT Help Desk, Block A - Room 102
+                </div>
+                <div className="contact-info">
+                  <strong>🕒 Hours:</strong> 24/7 for urgent issues
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Login;
-
