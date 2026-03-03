@@ -88,9 +88,19 @@ const User = () => {
       }
 
       if (editingId) {
+        if (
+          !window.confirm(
+            "Are you sure you want to update this user's profile information?",
+          )
+        )
+          return;
+        const load = toast.loading("Updating user...");
         await userService.update(editingId, submitData);
+        toast.dismiss(load);
       } else {
+        const load = toast.loading("Creating user...");
         await userService.create(submitData);
+        toast.dismiss(load);
       }
       setFormData({
         username: "",
@@ -103,9 +113,12 @@ const User = () => {
       });
       setEditingId(null);
       setShowForm(false);
-      toast.success(editingId ? "User updated!" : "User created!");
+      toast.success(
+        editingId ? "User updated successfully!" : "User created successfully!",
+      );
       fetchData();
     } catch (err) {
+      toast.dismiss();
       const msg = err.response?.data?.message || "Failed to save user";
       setError(msg);
       toast.error(msg);
@@ -125,12 +138,19 @@ const User = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this user? This action cannot be undone.",
+      )
+    ) {
+      const load = toast.loading("Deleting user...");
       try {
         await userService.delete(id);
-        toast.success("User deleted");
+        toast.dismiss(load);
+        toast.success("User deleted successfully");
         fetchData();
       } catch (err) {
+        toast.dismiss(load);
         toast.error("Failed to delete user");
       }
     }

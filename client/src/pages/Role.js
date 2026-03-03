@@ -58,6 +58,12 @@ const Role = () => {
     e.preventDefault();
     try {
       if (editingId) {
+        if (
+          !window.confirm(
+            "Are you sure you want to update this role's permissions?",
+          )
+        )
+          return;
         await roleService.update(editingId, formData);
       } else {
         await roleService.create(formData);
@@ -90,7 +96,11 @@ const Role = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this role? This action cannot be undone.",
+      )
+    ) {
       try {
         await roleService.delete(id);
         toast.success("Role deleted");
@@ -244,4 +254,3 @@ const Role = () => {
 };
 
 export default Role;
-

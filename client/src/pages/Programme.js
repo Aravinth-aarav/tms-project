@@ -52,6 +52,12 @@ const Programme = () => {
 
     try {
       if (editingId) {
+        if (
+          !window.confirm(
+            "Are you sure you want to update this programme's details?",
+          )
+        )
+          return;
         await programmeService.update(editingId, formData);
       } else {
         await programmeService.create(formData);
@@ -75,7 +81,11 @@ const Programme = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this programme? This action cannot be undone.",
+      )
+    ) {
       try {
         await programmeService.delete(id);
         toast.success("Programme deleted");
@@ -229,4 +239,3 @@ const Programme = () => {
 };
 
 export default Programme;
-

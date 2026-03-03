@@ -6,6 +6,10 @@ import "./ComplaintsDashboard.css";
 
 const ComplaintsDashboard = () => {
   const { user } = useContext(AuthContext);
+  const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://tms-project-su5o.onrender.com";
   const [complaints, setComplaints] = useState([]);
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({
@@ -83,13 +87,13 @@ const ComplaintsDashboard = () => {
     }
   };
 
-  const handleClose = async (id) => {
+  const handleStatusUpdate = async (id, status) => {
     try {
-      await complaintService.updateStatus(id, "Completed");
-      toast.success("Complaint resolved!", { icon: "✅" });
+      await complaintService.updateStatus(id, status);
+      toast.success(`Status updated to ${status}!`);
       refresh();
     } catch (err) {
-      const msg = "Failed to close complaint";
+      const msg = "Failed to update status";
       setError(msg);
       toast.error(msg);
     }
@@ -235,7 +239,27 @@ const ComplaintsDashboard = () => {
                               Room {c.roomNumber}
                             </span>
                           </td>
-                          <td>{c.complaintType}</td>
+                          <td>
+                            {c.complaintType}
+                            {c.isEdited && (
+                              <div
+                                style={{
+                                  fontSize: "0.7rem",
+                                  backgroundColor: "#fff7ed",
+                                  color: "#c2410c",
+                                  border: "1px solid #fdba74",
+                                  padding: "2px 6px",
+                                  borderRadius: "4px",
+                                  display: "inline-block",
+                                  marginLeft: "8px",
+                                  fontWeight: "800",
+                                  letterSpacing: "0.5px",
+                                }}
+                              >
+                                REVISED
+                              </div>
+                            )}
+                          </td>
                           <td
                             style={{ maxWidth: "200px", whiteSpace: "normal" }}
                           >
@@ -282,7 +306,7 @@ const ComplaintsDashboard = () => {
                             <div className="attachment-cell">
                               {c.attachment ? (
                                 <a
-                                  href={`https://tms-project-su5o.onrender.com${c.attachment}`}
+                                  href={`${BASE_URL}${c.attachment}`}
                                   target="_blank"
                                   rel="noreferrer"
                                   className="attachment-preview"
@@ -297,20 +321,25 @@ const ComplaintsDashboard = () => {
                           </td>
                           <td>
                             <div className="action-buttons">
-                              {(isAssignee || user?.role === "SuperAdmin") &&
-                                c.status !== "Completed" && (
-                                  <button
-                                    onClick={() => handleClose(c._id)}
-                                    className="action-btn"
-                                    style={{
-                                      borderColor: "#10b981",
-                                      color: "#10b981",
-                                      backgroundColor: "#ecfdf5",
-                                    }}
+                              {/* Status Update for Assignee or SuperAdmin */}
+                              {(isAssignee || user?.role === "SuperAdmin") && (
+                                <div className="status-update-container">
+                                  <select
+                                    className="status-dropdown-small"
+                                    onChange={(e) =>
+                                      handleStatusUpdate(c._id, e.target.value)
+                                    }
+                                    defaultValue={c.status}
                                   >
-                                    Mark Done
-                                  </button>
-                                )}
+                                    <option value="Assigned">Assigned</option>
+                                    <option value="In-Progress">
+                                      In-Progress
+                                    </option>
+                                    <option value="Onhold">Onhold</option>
+                                    <option value="Completed">Completed</option>
+                                  </select>
+                                </div>
+                              )}
 
                               {user?.role === "SuperAdmin" &&
                                 (assignTarget.complaintId === c._id ? (

@@ -27,8 +27,13 @@ router.get("/stats", auth, complaintController.getStats);
 router.get("/", auth, complaintController.listComplaints);
 router.patch("/:id/assign", auth, complaintController.assignComplaint);
 router.patch("/:id/status", auth, complaintController.updateStatus);
+router.put(
+  "/:id",
+  auth,
+  upload.single("attachment"),
+  complaintController.updateComplaint,
+);
 router.delete("/:id", auth, complaintController.deleteComplaint);
 router.get("/report", auth, complaintController.generateReport);
 
 module.exports = router;
-

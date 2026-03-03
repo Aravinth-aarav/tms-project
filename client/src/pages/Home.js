@@ -43,6 +43,18 @@ const Home = () => {
       icon: "👥",
       desc: "System user management",
     },
+    {
+      to: "/complaints",
+      label: "Complaints Dashboard",
+      icon: "🗂️",
+      desc: "Manage and assign all tickets",
+    },
+    {
+      to: "/reports",
+      label: "System Reports",
+      icon: "📊",
+      desc: "Analytics and activity logs",
+    },
   ];
 
   const userActions = [
@@ -161,14 +173,27 @@ const Home = () => {
               <div className="actions-grid">
                 {(user?.role === "SuperAdmin"
                   ? adminLinks
-                  : userActions.filter((action) => {
-                      if (
-                        action.to === "/complaints/new" &&
-                        user?.role !== "User"
-                      )
-                        return false;
-                      return true;
-                    })
+                  : // If staff, show relevant links plus user actions
+                    [
+                      ...userActions.filter((action) => {
+                        if (
+                          action.to === "/complaints/new" &&
+                          user?.role !== "User"
+                        )
+                          return false;
+                        return true;
+                      }),
+                      ...(user?.role !== "User"
+                        ? [
+                            {
+                              to: "/complaints",
+                              label: "Manage Complaints",
+                              icon: "🗂️",
+                              desc: "View and update assigned tickets",
+                            },
+                          ]
+                        : []),
+                    ]
                 ).map((link) => (
                   <Link
                     key={link.to}

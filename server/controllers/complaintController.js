@@ -6,16 +6,21 @@ const path = require("path");
 exports.deleteComplaint = async (req, res) => {
   try {
     const requester = req.user;
-    if (requester.role !== "SuperAdmin") {
-      return res
-        .status(403)
-        .json({ message: "Only SuperAdmin can delete complaints" });
-    }
-    const complaint = await Complaint.findByIdAndDelete(req.params.id);
+    const complaint = await Complaint.findById(req.params.id);
+
     if (!complaint) {
       return res.status(404).json({ message: "Complaint not found" });
     }
-    res.json({ message: "Complaint deleted" });
+
+    const isOwner = String(complaint.createdBy) === String(requester.id);
+    if (requester.role !== "SuperAdmin" && !isOwner) {
+      return res.status(403).json({
+        message: "You do not have permission to delete this complaint",
+      });
+    }
+
+    await Complaint.findByIdAndDelete(req.params.id);
+    res.json({ message: "Complaint deleted successfully" });
   } catch (error) {
     res
       .status(500)
@@ -68,6 +73,50 @@ exports.createComplaint = async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to create complaint", error: error.message });
+  }
+};
+
+exports.updateComplaint = async (req, res) => {
+  try {
+    const { blockName, roomNumber, complaintType, remarks } = req.body;
+    const complaintId = req.params.id;
+    const requester = req.user;
+
+    const complaint = await Complaint.findById(complaintId);
+    if (!complaint) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    const requesterId = requester.id || requester._id;
+    const ownerId = complaint.createdBy?._id || complaint.createdBy;
+
+    const isOwner = String(ownerId) === String(requesterId);
+    if (requester.role !== "SuperAdmin" && !isOwner) {
+      console.log(
+        `Permission denied: requester ${requesterId} is not owner ${ownerId}`,
+      );
+      return res.status(403).json({
+        message: "You do not have permission to update this complaint",
+      });
+    }
+
+    // Updated properties
+    complaint.blockName = blockName || complaint.blockName;
+    complaint.roomNumber = roomNumber || complaint.roomNumber;
+    complaint.complaintType = complaintType || complaint.complaintType;
+    complaint.remarks = remarks || complaint.remarks;
+    complaint.isEdited = true;
+
+    if (req.file) {
+      complaint.attachment = `/uploads/${req.file.filename}`;
+    }
+
+    await complaint.save();
+    res.json({ message: "Complaint updated successfully", complaint });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to update complaint", error: error.message });
   }
 };
 
@@ -267,6 +316,11 @@ exports.updateStatus = async (req, res) => {
     if (!complaint)
       return res.status(404).json({ message: "Complaint not found" });
 
+    const requesterId = String(requester.id || requester._id);
+    const assigneeId = complaint.assignedTo
+      ? String(complaint.assignedTo._id || complaint.assignedTo)
+      : null;
+
     // If requester is SuperAdmin, allow any change
     if (requester.role === "SuperAdmin") {
       complaint.status = status;
@@ -279,14 +333,16 @@ exports.updateStatus = async (req, res) => {
     }
 
     // Staff/Technician: must be assignedTo and can set limited statuses
-    const isAssignee =
-      complaint.assignedTo &&
-      String(complaint.assignedTo._id) === String(requester.id);
+    const isAssignee = assigneeId === requesterId;
 
-    if (!isAssignee)
+    if (!isAssignee) {
+      console.log(
+        `[Permission Denied] Req:${requesterId} Role:${requester.role} is NOT Assignee:${assigneeId}`,
+      );
       return res.status(403).json({
         message: "Only assigned staff can update status",
       });
+    }
 
     if (isAssignee) {
       const staffAllowed = ["In-Progress", "Onhold", "Completed"];
@@ -363,4 +419,3 @@ exports.generateReport = async (req, res) => {
       .json({ message: "Failed to generate report", error: error.message });
   }
 };
-

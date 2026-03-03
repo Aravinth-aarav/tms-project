@@ -4,6 +4,16 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
 import "./UserComplaintDashboard.css";
 
+const complaintTypes = [
+  "PC Hardware",
+  "PC Software",
+  "Application Issues",
+  "Network",
+  "Electronics",
+  "Plumbing",
+  "Other",
+];
+
 const StatCard = ({ label, value, color, onClick }) => (
   <div
     className="stat-card"
@@ -26,6 +36,10 @@ const StatCard = ({ label, value, color, onClick }) => (
 
 const UserComplaintDashboard = () => {
   const { user } = useContext(AuthContext);
+  const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://tms-project-su5o.onrender.com";
   const [myStats, setMyStats] = useState({
     total: 0,
     pending: 0,
@@ -36,11 +50,16 @@ const UserComplaintDashboard = () => {
   const [error, setError] = useState("");
   const [complaints, setComplaints] = useState([]);
   const [filterStatus, setFilterStatus] = useState("All");
-  const [selectedComplaint, setSelectedComplaint] = useState(null);
-  const [statusTarget, setStatusTarget] = useState({
-    complaintId: null,
-    status: "",
+
+  const [editingId, setEditingId] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    blockName: "",
+    roomNumber: "",
+    complaintType: "",
+    remarks: "",
+    attachment: "",
   });
+  const [newAttachment, setNewAttachment] = useState(null);
 
   const loadData = useCallback(async () => {
     try {
@@ -85,8 +104,62 @@ const UserComplaintDashboard = () => {
       ? complaints
       : complaints.filter((c) => c.status === filterStatus);
 
-  const viewComplaintDetails = (complaint) => {
-    setSelectedComplaint(complaint);
+  const handleEditClick = (complaint) => {
+    setEditingId(complaint._id);
+    setEditFormData({
+      blockName: complaint.blockName || "",
+      roomNumber: complaint.roomNumber || "",
+      complaintType: complaint.complaintType || "",
+      remarks: complaint.remarks || "",
+      attachment: complaint.attachment || "",
+    });
+    setNewAttachment(null);
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      !window.confirm(
+        "Are you sure you want to resubmit this complaint with the updated details?",
+      )
+    ) {
+      return;
+    }
+    const load = toast.loading("Updating your complaint...");
+    const formData = new FormData();
+    formData.append("blockName", editFormData.blockName);
+    formData.append("roomNumber", editFormData.roomNumber);
+    formData.append("complaintType", editFormData.complaintType);
+    formData.append("remarks", editFormData.remarks);
+    if (newAttachment) {
+      formData.append("attachment", newAttachment);
+    }
+
+    try {
+      await complaintService.update(editingId, formData);
+      toast.dismiss(load);
+      toast.success("Complaint details updated and resubmitted!");
+      setEditingId(null);
+      setNewAttachment(null);
+      loadData();
+    } catch (err) {
+      console.error("Update error:", err);
+      toast.dismiss(load);
+      toast.error(err.response?.data?.message || "Failed to update complaint");
+    }
+  };
+
+  const handleStatusUpdate = async (id, status) => {
+    const load = toast.loading("Updating status...");
+    try {
+      await complaintService.updateStatus(id, status);
+      toast.dismiss(load);
+      toast.success(`Status updated to ${status}!`);
+      loadData();
+    } catch (err) {
+      toast.dismiss(load);
+      toast.error("Failed to update status");
+    }
   };
 
   const getStatusBadge = (status) => {
@@ -138,12 +211,7 @@ const UserComplaintDashboard = () => {
             label="Total Complaints"
             value={myStats.total}
             color="#3b82f6"
-            onClick={() => {
-              setFilterStatus("All");
-              if (complaints.length > 0) {
-                viewComplaintDetails(complaints[0]);
-              }
-            }}
+            onClick={() => setFilterStatus("All")}
           />
           <StatCard
             label="Completed"
@@ -154,110 +222,129 @@ const UserComplaintDashboard = () => {
         </div>
       </div>
 
-      {/* Selected Complaint Details Card */}
-      {selectedComplaint && (
-        <div className="complaint-details-card">
+      {/* Edit Complaint Card */}
+      {editingId && (
+        <div
+          className="complaint-details-card edit-card"
+          style={{ marginBottom: "2rem" }}
+        >
           <div className="details-header">
-            <h3>Complaint Details</h3>
-            <button
-              onClick={() => setSelectedComplaint(null)}
-              className="close-btn"
-              aria-label="Close details"
-            >
+            <h3>Edit & Resubmit Complaint</h3>
+            <button onClick={() => setEditingId(null)} className="close-btn">
               ✕
             </button>
           </div>
-
-          <div className="details-grid">
-            <div className="detail-item">
-              <label>Block Name</label>
-              <div className="detail-value">
-                {selectedComplaint.blockName || "-"}
-              </div>
-            </div>
-
-            <div className="detail-item">
-              <label>Room Number</label>
-              <div className="detail-value">
-                {selectedComplaint.roomNumber || "-"}
-              </div>
-            </div>
-
-            <div className="detail-item">
-              <label>Complaint Type</label>
-              <div className="detail-value">
-                {selectedComplaint.complaintType || "-"}
-              </div>
-            </div>
-
-            <div className="detail-item">
-              <label>Status</label>
-              <div>
-                <span
-                  className={getStatusBadge(selectedComplaint.status)}
-                  style={{ fontSize: "0.95rem", padding: "0.5rem 1rem" }}
-                >
-                  {selectedComplaint.status}
-                </span>
-              </div>
-            </div>
-
-            <div className="detail-item">
-              <label>Date Created</label>
-              <div className="detail-value">
-                {new Date(selectedComplaint.createdAt).toLocaleDateString()}{" "}
-                {new Date(selectedComplaint.createdAt).toLocaleTimeString()}
-              </div>
-            </div>
-
-            {selectedComplaint.assignedTo && (
+          <form onSubmit={handleUpdateSubmit} className="edit-form">
+            <div className="details-grid">
               <div className="detail-item">
-                <label>Assigned To</label>
-                <div className="detail-value">
-                  {selectedComplaint.assignedTo?.username ||
-                    selectedComplaint.assignedTo ||
-                    "-"}
-                </div>
+                <label>Block Name</label>
+                <input
+                  type="text"
+                  className="edit-input"
+                  value={editFormData.blockName}
+                  onChange={(e) =>
+                    setEditFormData({
+                      ...editFormData,
+                      blockName: e.target.value,
+                    })
+                  }
+                  required
+                />
               </div>
-            )}
-          </div>
-
-          <div className="details-grid" style={{ marginTop: "1.5rem" }}>
-            {selectedComplaint.remarks && (
-              <div className="detail-item" style={{ gridColumn: "1 / -1" }}>
-                <label>Remarks</label>
-                <div
-                  className="detail-value"
-                  style={{ whiteSpace: "pre-wrap" }}
+              <div className="detail-item">
+                <label>Room Number</label>
+                <input
+                  type="text"
+                  className="edit-input"
+                  value={editFormData.roomNumber}
+                  onChange={(e) =>
+                    setEditFormData({
+                      ...editFormData,
+                      roomNumber: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="detail-item">
+                <label>Complaint Type</label>
+                <select
+                  className="edit-input"
+                  value={editFormData.complaintType}
+                  onChange={(e) =>
+                    setEditFormData({
+                      ...editFormData,
+                      complaintType: e.target.value,
+                    })
+                  }
+                  required
                 >
-                  {selectedComplaint.remarks}
-                </div>
+                  {complaintTypes.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
               </div>
-            )}
-
-            {selectedComplaint.attachment && (
-              <div className="detail-item" style={{ gridColumn: "1 / -1" }}>
-                <label>Attachment</label>
-                <div style={{ marginTop: "0.5rem" }}>
+            </div>
+            <div className="detail-item" style={{ marginTop: "1.5rem" }}>
+              <label>Remarks / Issue Details</label>
+              <textarea
+                className="edit-input textarea"
+                value={editFormData.remarks}
+                onChange={(e) =>
+                  setEditFormData({ ...editFormData, remarks: e.target.value })
+                }
+                rows="4"
+              />
+            </div>
+            <div className="detail-item" style={{ marginTop: "1.5rem" }}>
+              <label>Current Attachment</label>
+              <div style={{ marginBottom: "1rem" }}>
+                {editFormData.attachment ? (
                   <a
-                    href={`http://localhost:5000/${selectedComplaint.attachment}`}
+                    href={`${BASE_URL}${editFormData.attachment}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="detail-attachment-link"
+                    className="attachment-link"
                   >
-                    📎 View Attachment
+                    View Existing File 📎
                   </a>
-                </div>
+                ) : (
+                  <span style={{ color: "#64748b", fontSize: "0.9rem" }}>
+                    No attachment previously uploaded
+                  </span>
+                )}
               </div>
-            )}
-          </div>
-
-          {/* Status update section removed for complaint creators as per requirements */}
+              <label>Update Attachment (Optional)</label>
+              <input
+                type="file"
+                className="edit-input"
+                onChange={(e) => setNewAttachment(e.target.files[0])}
+                accept="image/*,application/pdf"
+              />
+            </div>
+            <div
+              className="form-actions"
+              style={{ marginTop: "2rem", display: "flex", gap: "1rem" }}
+            >
+              <button type="submit" className="btn-primary">
+                Resubmit Complaint
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditingId(null)}
+                className="btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       )}
 
       {/* Complaints List */}
-      <div className="table-card">
+      <div className="table-card" style={{ marginTop: "2rem" }}>
         <div className="table-header">
           <h3>
             {filterStatus === "All"
@@ -277,18 +364,15 @@ const UserComplaintDashboard = () => {
                 <th>Room</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Date Created</th>
-                <th>Remarks</th>
+                <th>Date</th>
+                <th>Attachment</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredComplaints.length > 0 ? (
                 filteredComplaints.map((complaint) => (
-                  <tr
-                    key={complaint._id}
-                    onClick={() => viewComplaintDetails(complaint)}
-                  >
+                  <tr key={complaint._id}>
                     <td>{complaint.blockName || "-"}</td>
                     <td>{complaint.roomNumber || "-"}</td>
                     <td>{complaint.complaintType || "-"}</td>
@@ -300,110 +384,64 @@ const UserComplaintDashboard = () => {
                     <td>
                       {new Date(complaint.createdAt).toLocaleDateString()}
                     </td>
-                    <td>{complaint.remarks?.substring(0, 30) || "-"}...</td>
                     <td>
-                      {/* Update status control for assigned staff (not SuperAdmin) */}
-                      {String(
-                        complaint.assignedTo?._id || complaint.assignedTo,
-                      ) === String(user?._id || user?.id) &&
-                      user?.role !== "SuperAdmin" ? (
-                        <div onClick={(e) => e.stopPropagation()}>
-                          {statusTarget.complaintId === complaint._id ? (
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "0.5rem",
-                                alignItems: "center",
-                              }}
-                            >
-                              <select
-                                className="status-select"
-                                style={{ padding: "0.4rem", minWidth: "120px" }}
-                                value={statusTarget.status}
-                                onChange={(e) =>
-                                  setStatusTarget({
-                                    ...statusTarget,
-                                    status: e.target.value,
-                                  })
-                                }
-                              >
-                                <option value="">Select status</option>
-                                <option value="In-Progress">In-Progress</option>
-                                <option value="Onhold">Onhold</option>
-                                <option value="Completed">Completed</option>
-                              </select>
-
-                              <button
-                                onClick={async (e) => {
-                                  e.stopPropagation();
-                                  try {
-                                    if (!statusTarget.status)
-                                      return setError("Select a status");
-                                    await complaintService.updateStatus(
-                                      statusTarget.complaintId,
-                                      statusTarget.status,
-                                    );
-                                    await loadData();
-                                    setStatusTarget({
-                                      complaintId: null,
-                                      status: "",
-                                    });
-                                    toast.success("Status updated!");
-                                    setError("");
-                                  } catch (err) {
-                                    const msg =
-                                      err.response?.data?.message ||
-                                      "Failed to update status";
-                                    setError(msg);
-                                    toast.error(msg);
-                                  }
-                                }}
-                                className="btn-primary"
-                                style={{
-                                  padding: "0.4rem 0.8rem",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                Save
-                              </button>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setStatusTarget({
-                                    complaintId: null,
-                                    status: "",
-                                  });
-                                }}
-                                className="btn-secondary"
-                                style={{
-                                  padding: "0.4rem 0.8rem",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          ) : (
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setStatusTarget({
-                                  complaintId: complaint._id,
-                                  status: "",
-                                });
-                              }}
-                              className="btn-primary"
-                              style={{
-                                padding: "0.4rem 0.8rem",
-                                fontSize: "0.85rem",
-                              }}
-                            >
-                              Update Status
-                            </button>
-                          )}
-                        </div>
+                      {complaint.attachment ? (
+                        <a
+                          href={`${BASE_URL}${complaint.attachment}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="attachment-link"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          View 📎
+                        </a>
                       ) : (
-                        <span style={{ color: "#94a3b8" }}>-</span>
+                        <span style={{ color: "#94a3b8" }}>No file</span>
+                      )}
+                    </td>
+                    <td>
+                      {/* Allow editing only if the user is the creator and it's not completed */}
+                      {String(
+                        complaint.createdBy?._id || complaint.createdBy,
+                      ) === String(user?.id || user?._id) && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditClick(complaint);
+                          }}
+                          className="btn-edit-small"
+                          style={{
+                            backgroundColor: "#3b82f6",
+                            color: "white",
+                            marginRight: "0.5rem",
+                          }}
+                        >
+                          Edit
+                        </button>
+                      )}
+
+                      {/* Allow status update only if the user is the assignee and it's not completed */}
+                      {(String(
+                        complaint.assignedTo?._id || complaint.assignedTo,
+                      ) === String(user?.id || user?._id) ||
+                        user?.role === "SuperAdmin") && (
+                        <select
+                          className="status-dropdown-small"
+                          style={{
+                            padding: "0.3rem 0.5rem",
+                            fontSize: "0.8rem",
+                          }}
+                          value={complaint.status}
+                          onChange={(e) =>
+                            handleStatusUpdate(complaint._id, e.target.value)
+                          }
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <option value="Assigned">Assigned</option>
+                          <option value="In-Progress">In-Progress</option>
+                          <option value="Onhold">Onhold</option>
+                          <option value="Completed">Completed</option>
+                        </select>
                       )}
                     </td>
                   </tr>
@@ -435,4 +473,3 @@ const UserComplaintDashboard = () => {
 };
 
 export default UserComplaintDashboard;
-

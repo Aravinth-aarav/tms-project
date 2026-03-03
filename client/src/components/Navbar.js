@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
@@ -8,11 +8,17 @@ const Navbar = () => {
   const { user, logout, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   const handleLogout = () => {
-    logout();
-    toast.success("Logged out successfully");
-    navigate("/login");
+    if (window.confirm("Are you sure you want to log out?")) {
+      logout();
+      toast.success("Logged out successfully");
+      navigate("/login");
+    }
   };
 
   if (location.pathname === "/login" || location.pathname === "/") {
@@ -23,18 +29,29 @@ const Navbar = () => {
     location.pathname === path ? "nav-link active" : "nav-link";
 
   return (
-    <nav className="sidebar">
+    <nav className={`sidebar ${isMobileMenuOpen ? "mobile-open" : ""}`}>
       <div className="sidebar-header">
-        <Link to="/dashboard" className="sidebar-brand">
+        <Link
+          to="/dashboard"
+          className="sidebar-brand"
+          onClick={closeMobileMenu}
+        >
           <span className="logo-icon">T</span> TMS
         </Link>
+        <button className="mobile-toggle" onClick={toggleMobileMenu}>
+          {isMobileMenuOpen ? "✕" : "☰"}
+        </button>
       </div>
 
       <div className="sidebar-nav">
         {isAuthenticated ? (
           <div className="nav-links">
             <div className="nav-group-label">Navigation</div>
-            <Link to="/dashboard" className={isActive("/dashboard")}>
+            <Link
+              to="/dashboard"
+              className={isActive("/dashboard")}
+              onClick={closeMobileMenu}
+            >
               <span className="nav-icon">🏠</span> Home
             </Link>
             <div className="nav-group-label">My Dashboard</div>
@@ -42,12 +59,17 @@ const Navbar = () => {
               <Link
                 to="/complaints/new"
                 className={isActive("/complaints/new")}
+                onClick={closeMobileMenu}
               >
                 <span className="nav-icon">✏️</span> Raise Complaint
               </Link>
             )}
             {user?.role !== "SuperAdmin" && (
-              <Link to="/my-complaints" className={isActive("/my-complaints")}>
+              <Link
+                to="/my-complaints"
+                className={isActive("/my-complaints")}
+                onClick={closeMobileMenu}
+              >
                 <span className="nav-icon">📋</span> My Complaints
               </Link>
             )}
@@ -55,28 +77,60 @@ const Navbar = () => {
             {user?.role === "SuperAdmin" && (
               <>
                 <div className="nav-group-label">Admin Panel</div>
-                <Link to="/departments" className={isActive("/departments")}>
+                <Link
+                  to="/departments"
+                  className={isActive("/departments")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">🏢</span> Departments
                 </Link>
-                <Link to="/programmes" className={isActive("/programmes")}>
+                <Link
+                  to="/programmes"
+                  className={isActive("/programmes")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">📚</span> Programmes
                 </Link>
-                <Link to="/blocks" className={isActive("/blocks")}>
+                <Link
+                  to="/blocks"
+                  className={isActive("/blocks")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">🏗️</span> Blocks
                 </Link>
-                <Link to="/rooms" className={isActive("/rooms")}>
+                <Link
+                  to="/rooms"
+                  className={isActive("/rooms")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">🚪</span> Rooms
                 </Link>
-                <Link to="/roles" className={isActive("/roles")}>
+                <Link
+                  to="/roles"
+                  className={isActive("/roles")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">🛡️</span> Roles
                 </Link>
-                <Link to="/users" className={isActive("/users")}>
+                <Link
+                  to="/users"
+                  className={isActive("/users")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">👥</span> Users
                 </Link>
-                <Link to="/complaints" className={isActive("/complaints")}>
+                <Link
+                  to="/complaints"
+                  className={isActive("/complaints")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">🗂️</span> All Complaints
                 </Link>
-                <Link to="/reports" className={isActive("/reports")}>
+                <Link
+                  to="/reports"
+                  className={isActive("/reports")}
+                  onClick={closeMobileMenu}
+                >
                   <span className="nav-icon">📊</span> Reports
                 </Link>
               </>
@@ -114,4 +168,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

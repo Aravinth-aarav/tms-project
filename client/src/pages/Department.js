@@ -46,6 +46,12 @@ const Department = () => {
 
     try {
       if (editingId) {
+        if (
+          !window.confirm(
+            "Are you sure you want to update this department's details?",
+          )
+        )
+          return;
         await departmentService.update(editingId, formData);
       } else {
         await departmentService.create(formData);
@@ -69,7 +75,11 @@ const Department = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this department? This action cannot be undone.",
+      )
+    ) {
       try {
         await departmentService.delete(id);
         toast.success("Department deleted");
@@ -204,4 +214,3 @@ const Department = () => {
 };
 
 export default Department;
-

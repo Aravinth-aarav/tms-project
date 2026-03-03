@@ -14,6 +14,7 @@ const complaintSchema = new mongoose.Schema(
       enum: ["Pending", "Assigned", "In-Progress", "Onhold", "Completed"],
       default: "Pending",
     },
+    isEdited: { type: Boolean, default: false },
     assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -25,4 +26,3 @@ const complaintSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("Complaint", complaintSchema);
-

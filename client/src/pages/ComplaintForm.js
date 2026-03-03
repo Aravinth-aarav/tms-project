@@ -137,6 +137,9 @@ const ComplaintForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!window.confirm("Are you sure you want to submit this complaint?")) {
+      return;
+    }
     setError("");
     setLoading(true);
 
@@ -317,4 +320,3 @@ const ComplaintForm = () => {
 };
 
 export default ComplaintForm;
-

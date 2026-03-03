@@ -114,6 +114,17 @@ body {
   box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
 }
 
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+}
+
 /* === Navigation Links === */
 .sidebar-nav {
   flex: 1;
@@ -280,7 +291,6 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* === Responsive Design (Mobile) === */
 @media (max-width: 992px) {
   body {
     padding-left: 0;
@@ -290,68 +300,97 @@ body {
   .sidebar {
     width: 100%;
     height: 70px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
+    flex-direction: column;
     overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
     border-right: none;
     border-bottom: 1px solid var(--sidebar-border);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Heavier shadow for top bar */
-    z-index: 9999;
+    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar.mobile-open {
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--sidebar-bg);
   }
 
   .sidebar-header {
-    padding: 0 1rem;
-    border-bottom: none;
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    background-color: var(--sidebar-bg);
+    z-index: 1001;
   }
 
   .sidebar-header::after {
     display: none;
   }
 
-  .sidebar-brand {
-    font-size: 1.4rem;
+  .mobile-toggle {
+    display: block;
+    z-index: 1002;
   }
 
   .sidebar-nav {
-    display: none; /* Hide main nav links on mobile for now, or implement a hamburger menu */
+    display: none; /* Hidden by default on mobile */
+    width: 100%;
+    padding: 1.5rem;
+    overflow-y: auto;
   }
 
-  /* Mobile Warning: Nav links are hidden in this simple logic. 
-     Ideally, you'd add a toggle state for a mobile menu. 
-     Keeping it simple as per instructions "don't touch functions".
-     We will show a simplified horizontal scroll list instead. 
-  */
-  .sidebar-nav {
+  .sidebar.mobile-open .sidebar-nav {
     display: flex;
-    flex-direction: row;
-    padding: 0 1rem;
-    overflow-x: auto;
-    align-items: center;
-    height: 100%;
-    gap: 0.5rem;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    flex-direction: column;
+    animation: slideDownFade 0.3s ease-out;
   }
 
   .nav-group-label {
-    display: none;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .nav-link {
-    white-space: nowrap;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 99px; /* Pill shape */
-    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
   }
 
   .sidebar-footer {
-    display: none;
+    display: none; /* Hidden on mobile by default */
+    padding: 1.5rem;
+    border-top: 1px solid var(--sidebar-border);
+    background: rgba(0, 0, 0, 0.3);
   }
 
-  /* Add a floating logout button for mobile? Or perhaps in the header */
+  .sidebar.mobile-open .sidebar-footer {
+    display: block;
+    animation: slideUpFade 0.3s ease-out;
+  }
+
+  @keyframes slideDownFade {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUpFade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

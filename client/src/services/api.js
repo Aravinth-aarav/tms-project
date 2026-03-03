@@ -1,7 +1,10 @@
 import axios from "axios";
 
 // In client/src/services/api.js
-const API_BASE_URL = "https://tms-project-su5o.onrender.com/api"; 
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://tms-project-su5o.onrender.com/api";
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -85,9 +88,9 @@ export const complaintService = {
     api.patch(`/complaints/${id}/assign`, { assignedTo }),
   updateStatus: (id, status) =>
     api.patch(`/complaints/${id}/status`, { status }),
+  update: (id, data) => api.put(`/complaints/${id}`, data),
   delete: (id) => api.delete(`/complaints/${id}`),
   report: (params) => api.get("/complaints/report", { params }),
 };
 
 export default api;
-

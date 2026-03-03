@@ -57,6 +57,12 @@ const Room = () => {
     e.preventDefault();
     try {
       if (editingId) {
+        if (
+          !window.confirm(
+            "Are you sure you want to update this room's details?",
+          )
+        )
+          return;
         await roomService.update(editingId, formData);
       } else {
         await roomService.create(formData);
@@ -90,7 +96,11 @@ const Room = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this room? This action cannot be undone.",
+      )
+    ) {
       try {
         await roomService.delete(id);
         toast.success("Room deleted");
@@ -268,4 +278,3 @@ const Room = () => {
 };
 
 export default Room;
-

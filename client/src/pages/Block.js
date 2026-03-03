@@ -52,6 +52,12 @@ const Block = () => {
     e.preventDefault();
     try {
       if (editingId) {
+        if (
+          !window.confirm(
+            "Are you sure you want to update this block's details?",
+          )
+        )
+          return;
         await blockService.update(editingId, formData);
       } else {
         await blockService.create(formData);
@@ -79,7 +85,11 @@ const Block = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this block? This action cannot be undone.",
+      )
+    ) {
       try {
         await blockService.delete(id);
         toast.success("Block deleted");
@@ -243,4 +253,3 @@ const Block = () => {
 };
 
 export default Block;
-
