@@ -357,7 +357,11 @@ const ComplaintsDashboard = () => {
                                     >
                                       <option value="">Choose Staff</option>
                                       {users
-                                        .filter((u) => u.role !== "SuperAdmin")
+                                        .filter(
+                                          (u) =>
+                                            u.role !== "SuperAdmin" &&
+                                            u.role !== "User",
+                                        )
                                         .map((u) => (
                                           <option key={u._id} value={u._id}>
                                             {u.username} ({u.role})
