@@ -431,7 +431,7 @@ const Reports = () => {
                         </td>
                         <td>
                           <button
-                            className="btn-delete-report"
+                            className="btn-delete-report" style={{background:"red"}}
                             onClick={() => handleDelete(r._id)}
                             title="Delete this record"
                           >

@@ -207,8 +207,8 @@
 }
 
 .edit-action-btn {
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  background-color: #3b82f6;
+  color: white;
   border: 1px solid rgba(59, 130, 246, 0.2);
 }
 

@@ -316,10 +316,17 @@ exports.updateStatus = async (req, res) => {
     if (!complaint)
       return res.status(404).json({ message: "Complaint not found" });
 
-    const requesterId = String(requester.id || requester._id);
+    const requesterId = (requester.id || requester._id)?.toString();
     const assigneeId = complaint.assignedTo
-      ? String(complaint.assignedTo._id || complaint.assignedTo)
+      ? (complaint.assignedTo._id || complaint.assignedTo)?.toString()
       : null;
+
+    console.log(
+      `[Status Update] Complaint:${complaintId} by User:${requesterId} (${requester.role})`,
+    );
+    console.log(
+      `[Status Update] AssigneeID: ${assigneeId} | RequesterID: ${requesterId}`,
+    );
 
     // If requester is SuperAdmin, allow any change
     if (requester.role === "SuperAdmin") {
@@ -329,27 +336,31 @@ exports.updateStatus = async (req, res) => {
         "assignedTo",
         "username email",
       );
-      return res.json({ message: "Status updated", complaint: updated });
+      return res.json({
+        message: "Status updated by SuperAdmin",
+        complaint: updated,
+      });
     }
 
     // Staff/Technician: must be assignedTo and can set limited statuses
     const isAssignee = assigneeId === requesterId;
 
     if (!isAssignee) {
-      console.log(
-        `[Permission Denied] Req:${requesterId} Role:${requester.role} is NOT Assignee:${assigneeId}`,
+      console.warn(
+        `[Permission Denied] Requester ${requesterId} is NOT the assignee ${assigneeId}`,
       );
       return res.status(403).json({
-        message: "Only assigned staff can update status",
+        message:
+          "Only the assigned staff can update the status of this complaint",
+        debug: { requesterId, assigneeId },
       });
     }
 
-    if (isAssignee) {
-      const staffAllowed = ["In-Progress", "Onhold", "Completed"];
-      if (!staffAllowed.includes(status))
-        return res
-          .status(403)
-          .json({ message: "Assigned staff cannot set this status" });
+    const staffAllowed = ["Assigned", "In-Progress", "Onhold", "Completed"];
+    if (!staffAllowed.includes(status)) {
+      return res
+        .status(403)
+        .json({ message: `Staff cannot set status to ${status}` });
     }
 
     complaint.status = status;
@@ -358,7 +369,7 @@ exports.updateStatus = async (req, res) => {
       "assignedTo",
       "username email",
     );
-    res.json({ message: "Status updated", complaint: updated });
+    res.json({ message: "Status updated successfully", complaint: updated });
   } catch (error) {
     res
       .status(500)
