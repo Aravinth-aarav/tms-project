@@ -23,7 +23,6 @@ const User = () => {
   const [editingId, setEditingId] = useState(null);
 
   const roles = [
-    "SuperAdmin",
     "User",
     "Networking Staff",
     "Plumber",
