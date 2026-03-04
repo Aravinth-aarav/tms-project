@@ -11,6 +11,11 @@ import "./Reports.css";
 
 const Reports = () => {
   const { user } = useContext(AuthContext);
+  const BASE_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+      ? "http://localhost:5000"
+      : "https://tms-project-su5o.onrender.com";
   const [departments, setDepartments] = useState([]);
   const [programmes, setProgrammes] = useState([]);
   const [users, setUsers] = useState([]);
@@ -339,9 +344,11 @@ const Reports = () => {
                     <th>Dept / Prog</th>
                     <th>Location</th>
                     <th>Type</th>
+                    <th>Remarks</th>
                     <th>Status</th>
                     <th>Reporter</th>
                     <th>Assignee</th>
+                    <th>Attachment</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -381,6 +388,15 @@ const Reports = () => {
                         <td>
                           <span className="type-text">{r.complaintType}</span>
                         </td>
+                        <td
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "normal",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          {r.remarks || "-"}
+                        </td>
                         <td>
                           <span className={getStatusBadge(r.status)}>
                             {r.status}
@@ -400,6 +416,20 @@ const Reports = () => {
                           )}
                         </td>
                         <td>
+                          {r.attachment ? (
+                            <a
+                              href={`${BASE_URL}${r.attachment}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="attachment-preview"
+                            >
+                              📁 View
+                            </a>
+                          ) : (
+                            <span style={{ color: "#94a3b8" }}>-</span>
+                          )}
+                        </td>
+                        <td>
                           <button
                             className="btn-delete-report"
                             onClick={() => handleDelete(r._id)}
@@ -413,7 +443,7 @@ const Reports = () => {
                   ) : (
                     <tr>
                       <td
-                        colSpan="10"
+                        colSpan="11"
                         style={{
                           textAlign: "center",
                           padding: "2rem",

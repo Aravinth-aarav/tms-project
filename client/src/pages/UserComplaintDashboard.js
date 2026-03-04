@@ -37,7 +37,8 @@ const StatCard = ({ label, value, color, onClick }) => (
 const UserComplaintDashboard = () => {
   const { user } = useContext(AuthContext);
   const BASE_URL =
-    window.location.hostname === "localhost"
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
       ? "http://localhost:5000"
       : "https://tms-project-su5o.onrender.com";
   const [myStats, setMyStats] = useState({
@@ -363,6 +364,7 @@ const UserComplaintDashboard = () => {
                 <th>Block</th>
                 <th>Room</th>
                 <th>Type</th>
+                <th>Remarks</th>
                 <th>Status</th>
                 <th>Date</th>
                 <th>Attachment</th>
@@ -376,6 +378,9 @@ const UserComplaintDashboard = () => {
                     <td>{complaint.blockName || "-"}</td>
                     <td>{complaint.roomNumber || "-"}</td>
                     <td>{complaint.complaintType || "-"}</td>
+                    <td style={{ maxWidth: "200px", whiteSpace: "normal" }}>
+                      {complaint.remarks || "-"}
+                    </td>
                     <td>
                       <span className={getStatusBadge(complaint.status)}>
                         {complaint.status}
