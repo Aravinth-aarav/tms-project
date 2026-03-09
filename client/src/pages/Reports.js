@@ -340,7 +340,6 @@ const Reports = () => {
                 <thead>
                   <tr>
                     <th>Reported On</th>
-                    <th>Last Activity</th>
                     <th>Dept / Prog</th>
                     <th>Location</th>
                     <th>Type</th>
@@ -366,12 +365,6 @@ const Reports = () => {
                               minute: "2-digit",
                             })}
                           </div>
-                        </td>
-                        <td className="activity-cell">
-                          {new Date(r.updatedAt).toLocaleDateString() ===
-                          new Date(r.createdAt).toLocaleDateString()
-                            ? "Just reported"
-                            : `${new Date(r.updatedAt).toLocaleDateString()} ${new Date(r.updatedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`}
                         </td>
                         <td>
                           <div className="dept-text">
@@ -432,6 +425,7 @@ const Reports = () => {
                         <td>
                           <button
                             className="btn-delete-report"
+                            style={{ background: "red" }}
                             onClick={() => handleDelete(r._id)}
                             title="Delete this record"
                           >
@@ -443,7 +437,7 @@ const Reports = () => {
                   ) : (
                     <tr>
                       <td
-                        colSpan="11"
+                        colSpan="10"
                         style={{
                           textAlign: "center",
                           padding: "2rem",

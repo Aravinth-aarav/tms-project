@@ -96,7 +96,6 @@ const Home = () => {
             <h1>
               {isAuthenticated ? (
                 <>
-                  Good Morning,{" "}
                   <span className="highlight">
                     {user?.username || "Researcher"}
                   </span>
@@ -128,38 +127,7 @@ const Home = () => {
 
         {isAuthenticated ? (
           <div className="dashboard-content">
-            <section className="philosophy-section">
-              <div className="section-title">
-                <h2>Our Mission</h2>
-                <span className="premium-badge">Platform Vision</span>
-              </div>
-              <div className="philosophy-grid">
-                <div className="phi-card">
-                  <div className="phi-icon">🎯</div>
-                  <h3>Precision Tracking</h3>
-                  <p>
-                    Every ticket is monitored from submission to final
-                    resolution with absolute transparency.
-                  </p>
-                </div>
-                <div className="phi-card">
-                  <div className="phi-icon">⚡</div>
-                  <h3>Rapid Response</h3>
-                  <p>
-                    Our intelligent system ensures that the right staff is
-                    alerted the moment a complaint is raised.
-                  </p>
-                </div>
-                <div className="phi-card">
-                  <div className="phi-icon">📈</div>
-                  <h3>Data Driven</h3>
-                  <p>
-                    Analytics help us identify recurring issues and improve
-                    campus facility maintenance permanently.
-                  </p>
-                </div>
-              </div>
-            </section>
+           
 
             {/* Quick Actions Grid */}
             <section className="actions-section">
@@ -211,20 +179,7 @@ const Home = () => {
               </div>
             </section>
 
-            {/* Help/Inspiration Card */}
-            <footer className="dashboard-footer">
-              <div className="help-card">
-                <div className="help-icon">💡</div>
-                <div className="help-text">
-                  <h3>Need Assistance?</h3>
-                  <p>
-                    Check our documentation or contact the system administrator
-                    for technical support.
-                  </p>
-                </div>
-                <button className="help-btn">Get Help</button>
-              </div>
-            </footer>
+         
           </div>
         ) : (
           <div className="guest-content">
