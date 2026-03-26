@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+# Testing CI/CD pipeline
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,3 +34,5 @@ jobs:
 
       - name: Push Frontend Image
         run: docker push aravinth2005/tms-client:${{ env.VERSION }}
+      - name: Deploy to Server
+        run: echo "Deployment step coming soon"
