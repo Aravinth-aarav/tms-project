@@ -1,5 +1,5 @@
 name: CI/CD Pipeline
-# trigger pipeline
+
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    # trigger pipeline
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
