@@ -1,42 +1,35 @@
 # TMS - Quick Reference
 
-## Core Commands
-
-### server
+### Quick Launch (Docker)
 
 ```bash
-cd server
-npm install          # First time setup
-npm run dev          # Start development server
-```
-
-### client
-
-```bash
-cd client
-npm install          # First time setup
-npm start            # Start development server
+run_app.bat          # Automated startup
+# OR
+docker-compose up -d  # Manual docker start
 ```
 
 ## Key Endpoints
 
-| Method | Endpoint             | Auth Required | Role Required |
-| ------ | -------------------- | ------------- | ------------- |
-| POST   | `/api/auth/register` | No            | -             |
-| POST   | `/api/auth/login`    | No            | -             |
-| GET    | `/api/auth/profile`  | Yes           | -             |
-| GET    | `/api/departments`   | Yes           | -             |
-| POST   | `/api/departments`   | Yes           | SuperAdmin    |
-| GET    | `/api/programmes`    | Yes           | -             |
-| POST   | `/api/programmes`    | Yes           | SuperAdmin    |
-| GET    | `/api/blocks`        | Yes           | -             |
-| POST   | `/api/blocks`        | Yes           | SuperAdmin    |
-| GET    | `/api/rooms`         | Yes           | -             |
-| POST   | `/api/rooms`         | Yes           | SuperAdmin    |
-| GET    | `/api/roles`         | Yes           | -             |
-| POST   | `/api/roles`         | Yes           | SuperAdmin    |
-| GET    | `/api/users`         | Yes           | SuperAdmin    |
-| POST   | `/api/users`         | Yes           | SuperAdmin    |
+| Method | Endpoint                     | Auth Required | Role Required  |
+| ------ | ---------------------------- | ------------- | -------------- |
+| POST   | `/api/auth/register`         | No            | -              |
+| POST   | `/api/auth/login`            | No            | -              |
+| GET    | `/api/auth/profile`          | Yes           | -              |
+| GET    | `/api/departments`           | Yes           | -              |
+| POST   | `/api/departments`           | Yes           | SuperAdmin     |
+| GET    | `/api/programmes`            | Yes           | -              |
+| POST   | `/api/programmes`            | Yes           | SuperAdmin     |
+| GET    | `/api/blocks`                | Yes           | -              |
+| POST   | `/api/blocks`                | Yes           | SuperAdmin     |
+| GET    | `/api/rooms`                 | Yes           | -              |
+| POST   | `/api/rooms`                 | Yes           | SuperAdmin     |
+| GET    | `/api/roles`                 | Yes           | -              |
+| POST   | `/api/roles`                 | Yes           | SuperAdmin     |
+| POST   | `/api/users`                 | Yes           | SuperAdmin     |
+| GET    | `/api/complaints`            | Yes           | -              |
+| POST   | `/api/complaints`            | Yes           | User/Admin     |
+| PATCH  | `/api/complaints/:id/assign` | Yes           | SuperAdmin     |
+| PATCH  | `/api/complaints/:id/status` | Yes           | Assignee/Admin |
 
 ## Default Credentials
 
@@ -57,6 +50,7 @@ npm start            # Start development server
 | `/rooms`       | Room       | SuperAdmin |
 | `/roles`       | Role       | SuperAdmin |
 | `/users`       | User       | SuperAdmin |
+| `/reports`     | Reports    | Protected  |
 
 ## Available Roles
 
@@ -69,12 +63,8 @@ npm start            # Start development server
 
 ## Database Collections
 
-1. **users** - User accounts and profiles
-2. **departments** - Department master data
-3. **programmes** - Programme/course data
-4. **blocks** - Building block data
-5. **rooms** - Room/classroom data
 6. **roles** - Role definitions
+7. **complaints** - Ticket/complaint records
 
 ## Environment Setup
 
@@ -109,7 +99,7 @@ NODE_ENV=development
 | MongoDB connection failed | Start MongoDB service               |
 | Port 5000 in use          | Kill process or change PORT in .env |
 | Port 3000 in use          | Run `PORT=3001 npm start`           |
-| CORS errors               | Ensure server is running           |
+| CORS errors               | Ensure server is running            |
 | Login fails               | Check email and password            |
 | No departments showing    | Create one first as SuperAdmin      |
 
@@ -163,4 +153,3 @@ TMS-TEST-PROJECT/
 ---
 
 For detailed information, refer to the respective documentation files.
-

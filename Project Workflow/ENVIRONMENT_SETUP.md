@@ -18,6 +18,8 @@ Edit `server/.env` and set these values:
 ```env
 # MongoDB Connection
 MONGODB_URI=mongodb://localhost:27017/tms-complaints
+# OR if using Docker:
+# MONGODB_URI=mongodb://mongodb:27017/tms-complaints
 
 # Server Configuration
 PORT=5000
@@ -33,11 +35,9 @@ JWT_EXPIRY=7d
 - **MONGODB_URI**: Points to your MongoDB instance
   - For local MongoDB: `mongodb://localhost:27017/tms-complaints`
   - For MongoDB Atlas: `mongodb+srv://username:password@cluster.mongodb.net/tms-complaints`
-  
 - **JWT_SECRET**: Change this to a secure random string in production!
   - Example: `xK9$mP2@qL8vN5%rT3zF6`
-  
-- **NODE_ENV**: 
+- **NODE_ENV**:
   - Use `development` for local testing
   - Use `production` for live deployment
 
@@ -46,15 +46,11 @@ JWT_EXPIRY=7d
 ## client Configuration
 
 The client automatically uses:
-- **API Base URL**: `http://localhost:5000/api`
-- **Token Storage**: Browser's localStorage
-- **CORS**: Enabled from server
 
-No `.env` file needed for client development. To change the API base URL, edit `client/src/services/api.js`:
+- **Local API**: `http://localhost:5000/api`
+- **Remote API**: `https://tms-project-su5o.onrender.com/api`
 
-```javascript
-const API_BASE_URL = 'http://localhost:5000/api'; // Change this line
-```
+The `client/src/services/api.js` file handles switching between these based on your hostname. No manual changes are usually required.
 
 ---
 
@@ -63,12 +59,14 @@ const API_BASE_URL = 'http://localhost:5000/api'; // Change this line
 ### Local MongoDB Installation
 
 #### Windows:
+
 1. Download from [mongodb.com](https://www.mongodb.com/try/download/community)
 2. Run the installer
 3. Choose "Install MongoDB as a Service" during installation
 4. MongoDB starts automatically
 
 #### macOS:
+
 ```bash
 # Using Homebrew
 brew tap mongodb/brew
@@ -77,6 +75,7 @@ brew services start mongodb-community
 ```
 
 #### Linux (Ubuntu):
+
 ```bash
 wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
@@ -104,6 +103,7 @@ mongosh
 ```
 
 Then test the connection:
+
 ```bash
 # List databases
 show dbs
@@ -200,6 +200,7 @@ Content-Type: application/json
 ```
 
 Copy the returned token and set:
+
 ```
 POST-request Script:
 pm.environment.set("token", pm.response.json().token);
@@ -208,6 +209,7 @@ pm.environment.set("token", pm.response.json().token);
 ### Add Token to Headers
 
 For all protected requests:
+
 ```
 Headers:
 Authorization: Bearer {{token}}
@@ -223,6 +225,7 @@ Content-Type: application/json
 **Error**: `MongoError: connect ECONNREFUSED 127.0.0.1:27017`
 
 **Solution**:
+
 1. Ensure MongoDB is running
 2. Check MongoDB URI in `.env`
 3. Verify port 27017 is not blocked
@@ -243,6 +246,7 @@ sudo systemctl start mongod
 **Error**: `Error: listen EADDRINUSE :::5000`
 
 **Solution**:
+
 ```bash
 # Windows
 netstat -ano | findstr :5000
@@ -261,6 +265,7 @@ PORT=5001
 **Error**: `Cannot find module 'express'`
 
 **Solution**:
+
 ```bash
 # Delete and reinstall
 rm -rf node_modules package-lock.json
@@ -272,6 +277,7 @@ npm install
 **Error**: `Invalid token` or `No token provided`
 
 **Solution**:
+
 1. Ensure Bearer token is in Authorization header
 2. Check token is not expired
 3. Verify JWT_SECRET matches in server
@@ -283,11 +289,13 @@ npm install
 ### Starting Development
 
 1. **Terminal 1 - MongoDB**
+
    ```bash
    mongod  # or use service manager
    ```
 
 2. **Terminal 2 - server**
+
    ```bash
    cd server
    npm run dev
@@ -316,11 +324,13 @@ Use Postman for API testing with stored tokens.
 ### Before Deploying
 
 1. **Change JWT_SECRET**
+
    ```env
    JWT_SECRET=very_long_random_secure_string_here
    ```
 
 2. **Set NODE_ENV to production**
+
    ```env
    NODE_ENV=production
    ```
@@ -328,6 +338,7 @@ Use Postman for API testing with stored tokens.
 3. **Use MongoDB Atlas** instead of local MongoDB
 
 4. **Build client**
+
    ```bash
    cd client
    npm run build
@@ -341,48 +352,22 @@ Use Postman for API testing with stored tokens.
 
 ---
 
-## Docker Setup (Optional)
+## Docker Setup (Recommended)
 
-Create `server/Dockerfile`:
-```dockerfile
-FROM node:18
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 5000
-CMD ["npm", "run", "dev"]
-```
+The project includes a full Docker configuration.
 
-Create `docker-compose.yml`:
-```yaml
-version: '3'
-services:
-  mongodb:
-    image: mongo:6
-    ports:
-      - "27017:27017"
-  server:
-    build: ./server
-    ports:
-      - "5000:5000"
-    environment:
-      MONGODB_URI: mongodb://mongodb:27017/tms-complaints
-    depends_on:
-      - mongodb
-  client:
-    image: node:18
-    working_dir: /app
-    volumes:
-      - ./client:/app
-    ports:
-      - "3000:3000"
-    command: npm start
-```
+### Files:
 
-Run:
+- `docker-compose.yml`: Orchestrates mongo, server (backend), and client (frontend).
+- `run_app.bat`: Automation script for Windows.
+- `server/Dockerfile`: Backend image definition.
+- `client/Dockerfile`: Frontend image definition.
+
+### To Start:
+
 ```bash
-docker-compose up
+# Simply run the batch file
+run_app.bat
 ```
 
 ---
@@ -421,4 +406,3 @@ npm install --prefix client
 ---
 
 **Ready to develop!** Start all three terminals and begin building features.
-

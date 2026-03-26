@@ -8,19 +8,38 @@ exports.createUser = async (req, res) => {
     const bcrypt = require("bcryptjs");
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({
+    const userData = {
       username,
       email,
       phone,
       password: hashedPassword,
       role,
-      department,
-      programme,
-    });
+    };
+
+    if (department && department.trim() !== "") userData.department = department;
+    if (programme && programme.trim() !== "") userData.programme = programme;
+
+    const user = new User(userData);
 
     await user.save();
     res.status(201).json({ message: "User created successfully", user });
   } catch (error) {
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyValue)[0];
+      return res.status(400).json({ 
+        message: `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`,
+        error: error.message 
+      });
+    }
+    
+    // Handle CastError for empty strings like department or programme
+    if (error.name === 'CastError' && error.value === '') {
+      return res.status(400).json({
+        message: `Invalid format for ${error.path}`,
+        error: error.message
+      });
+    }
+
     res
       .status(500)
       .json({ message: "Failed to create user", error: error.message });
@@ -66,9 +85,14 @@ exports.getUserById = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { username, email, phone, role, department, programme } = req.body;
+    
+    const updateData = { username, email, phone, role };
+    if (department && department.trim() !== "") updateData.department = department;
+    if (programme && programme.trim() !== "") updateData.programme = programme;
+
     const user = await User.findByIdAndUpdate(
       req.params.id,
-      { username, email, phone, role, department, programme },
+      updateData,
       { new: true, runValidators: true },
     ).select("-password");
 
@@ -77,6 +101,22 @@ exports.updateUser = async (req, res) => {
     }
     res.json({ message: "User updated successfully", user });
   } catch (error) {
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyValue)[0];
+      return res.status(400).json({ 
+        message: `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`,
+        error: error.message 
+      });
+    }
+    
+    // Handle CastError for empty strings like department or programme
+    if (error.name === 'CastError' && error.value === '') {
+      return res.status(400).json({
+        message: `Invalid format for ${error.path}`,
+        error: error.message
+      });
+    }
+
     res
       .status(500)
       .json({ message: "Failed to update user", error: error.message });

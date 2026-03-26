@@ -1,4 +1,5 @@
 # TMS - Complaint Management System
+
 ## START HERE 👈
 
 Welcome to the TMS (Complaint Management System) project! This is a complete MERN stack application ready for development and deployment.
@@ -8,40 +9,28 @@ Welcome to the TMS (Complaint Management System) project! This is a complete MER
 ## 🚀 Quick Start (5 Minutes)
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/) v14+
 - [MongoDB](https://www.mongodb.com/try/download/community)
 - [Postman](https://www.postman.com/downloads/) (optional, for API testing)
 
-### Quick Steps
+### Quick Steps (Automated)
 
-1. **Start MongoDB**
+1. **Run Startup Script**
    ```bash
-   mongod  # or use your system's method to start MongoDB
+   run_app.bat
    ```
+   ✓ That's it! Docker will pull images, start the DB, Server, and client, then open your browser.
 
-2. **Start server** (in a new terminal)
+### Quick Steps (Manual Docker)
+
+1. **Launch Containers**
    ```bash
-   cd server
-   npm install
-   npm run dev
+   docker-compose up -d
    ```
-   ✓ server runs on http://localhost:5000
-
-3. **Start client** (in another terminal)
-   ```bash
-   cd client
-   npm install
-   npm start
-   ```
-   ✓ client runs on http://localhost:3000
-
-4. **Create SuperAdmin User**
-   - Use Postman to POST to `http://localhost:5000/api/auth/register`
-   - See [POSTMAN_SETUP.md](./POSTMAN_SETUP.md) for exact details
-
-5. **Login**
-   - Go to http://localhost:3000/login
-   - Use your SuperAdmin credentials
+2. **Access App**
+   - client: http://localhost:3000
+   - server: http://localhost:5000
 
 ---
 
@@ -50,52 +39,67 @@ Welcome to the TMS (Complaint Management System) project! This is a complete MER
 **Start with one of these based on your needs:**
 
 ### 1. **Just Want to Run It?**
-   → Read [STARTUP_GUIDE.md](./STARTUP_GUIDE.md)
-   - Step-by-step setup instructions
-   - Troubleshooting tips
-   - How to create first user
+
+→ Read [STARTUP_GUIDE.md](./STARTUP_GUIDE.md)
+
+- Step-by-step setup instructions
+- Troubleshooting tips
+- How to create first user
 
 ### 2. **Want to Test APIs?**
-   → Read [POSTMAN_SETUP.md](./POSTMAN_SETUP.md)
-   - Postman collection setup
-   - Sample requests
-   - Authentication guide
+
+→ Read [POSTMAN_SETUP.md](./POSTMAN_SETUP.md)
+
+- Postman collection setup
+- Sample requests
+- Authentication guide
 
 ### 3. **Need Environment Configuration?**
-   → Read [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)
-   - .env file configuration
-   - MongoDB setup options
-   - Docker setup
+
+→ Read [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)
+
+- .env file configuration
+- MongoDB setup options
+- Docker setup & [DOCKER_SUMMARY.md](../DOCKER_SUMMARY.md)
 
 ### 4. **Need Complete Project Info?**
-   → Read [README.md](./README.md)
-   - Full API documentation
-   - Database schemas
-   - Feature list
+
+→ Read [README.md](./README.md)
+
+- Full API documentation
+- Database schemas
+- Feature list
 
 ### 5. **Want a Quick Reference?**
-   → Read [QUICK_REFERENCE.md](./QUICK_REFERENCE.md)
-   - Commands and endpoints
-   - Credentials
-   - Common issues
+
+→ Read [QUICK_REFERENCE.md](./QUICK_REFERENCE.md)
+
+- Commands and endpoints
+- Credentials
+- Common issues
 
 ### 6. **Want Project Overview?**
-   → Read [PROJECT_COMPLETE.md](./PROJECT_COMPLETE.md)
-   - What's been created
-   - Project statistics
-   - Next steps
+
+→ Read [PROJECT_COMPLETE.md](./PROJECT_COMPLETE.md)
+
+- What's been created
+- Project statistics
+- Next steps
 
 ### 7. **Need File Structure?**
-   → Read [FILE_STRUCTURE.md](./FILE_STRUCTURE.md)
-   - Complete directory layout
-   - File descriptions
-   - API endpoints
+
+→ Read [FILE_STRUCTURE.md](./FILE_STRUCTURE.md)
+
+- Complete directory layout
+- File descriptions
+- API endpoints
 
 ---
 
 ## 🎯 What's Included
 
 ### ✅ server (Node.js + Express + MongoDB)
+
 - Complete REST API with 6 modules
 - JWT authentication
 - Role-based access control
@@ -103,19 +107,23 @@ Welcome to the TMS (Complaint Management System) project! This is a complete MER
 - Error handling and validation
 
 ### ✅ client (React + React Router)
+
 - Login screen with JWT authentication
-- 8 pages (Home + 6 Master Screens + Login)
+- 9 pages (Home + 6 Master Screens + Reports + Login)
 - Role-based navigation
+- Complaint registration and tracking
 - Form validation and error handling
 - Responsive design
 
 ### ✅ Database (MongoDB)
+
 - 6 collections (User, Department, Programme, Block, Room, Role)
 - Relationships and references
 - Indexes for performance
 - Schema validation
 
 ### ✅ Security
+
 - Password hashing (bcryptjs)
 - JWT token authentication
 - Role-based access control
@@ -143,6 +151,7 @@ TMS-TEST-PROJECT/
 ## 🔑 Default Credentials
 
 After creating SuperAdmin user:
+
 - **Email**: superadmin@example.com
 - **Password**: SuperAdmin@123
 - **Role**: SuperAdmin (access to all master screens)
@@ -159,17 +168,20 @@ As SuperAdmin, you have access to:
 4. **Rooms** - Create/manage rooms/classrooms
 5. **Roles** - Create/manage user roles
 6. **Users** - Create/manage system users
+7. **Reports** - Detailed analytics and complaint tracking
 
 ---
 
 ## 🔧 Available APIs
 
 **Authentication:**
+
 - POST `/api/auth/register` - Register user
 - POST `/api/auth/login` - Login user
 - GET `/api/auth/profile` - Get profile
 
 **Master Data (SuperAdmin only):**
+
 - GET/POST `/api/departments` - Manage departments
 - GET/POST `/api/programmes` - Manage programmes
 - GET/POST `/api/blocks` - Manage blocks
@@ -184,26 +196,33 @@ See [README.md](./README.md) for complete endpoint details.
 ## 💡 Common Tasks
 
 ### Task: Run the application
+
 **Steps**: See [STARTUP_GUIDE.md](./STARTUP_GUIDE.md#quick-start-guide)
 
 ### Task: Create a new Department
-**Steps**: 
+
+**Steps**:
+
 1. Login as SuperAdmin
 2. Navigate to Departments
 3. Click "Add Department"
 4. Fill form and submit
 
 ### Task: Create a new User
+
 **Steps**:
+
 1. Login as SuperAdmin
 2. Navigate to Users
 3. Click "Add User"
 4. Fill form and submit
 
 ### Task: Test API with Postman
+
 **Steps**: See [POSTMAN_SETUP.md](./POSTMAN_SETUP.md)
 
 ### Task: Fix connection errors
+
 **Steps**: See [STARTUP_GUIDE.md#troubleshooting](./STARTUP_GUIDE.md#troubleshooting)
 
 ---
@@ -212,13 +231,13 @@ See [README.md](./README.md) for complete endpoint details.
 
 ### Common Issues
 
-| Problem | Solution |
-|---------|----------|
-| MongoDB not connecting | Start MongoDB service |
-| Port 5000 in use | Kill process or change PORT in .env |
-| npm modules error | Delete node_modules and run npm install |
-| Can't login | Check email and password are correct |
-| CORS errors | Ensure server is running |
+| Problem                | Solution                                |
+| ---------------------- | --------------------------------------- |
+| MongoDB not connecting | Start MongoDB service                   |
+| Port 5000 in use       | Kill process or change PORT in .env     |
+| npm modules error      | Delete node_modules and run npm install |
+| Can't login            | Check email and password are correct    |
+| CORS errors            | Ensure server is running                |
 
 For detailed troubleshooting, see [STARTUP_GUIDE.md#troubleshooting](./STARTUP_GUIDE.md#troubleshooting)
 
@@ -227,6 +246,7 @@ For detailed troubleshooting, see [STARTUP_GUIDE.md#troubleshooting](./STARTUP_G
 ## 🚢 Deployment Ready
 
 The project is ready for:
+
 - ✅ Local development
 - ✅ Docker deployment
 - ✅ Cloud hosting (Heroku, AWS, Azure, etc.)
@@ -272,6 +292,7 @@ See [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md#production-deployment) for dep
 → **Open [STARTUP_GUIDE.md](./STARTUP_GUIDE.md) and follow the step-by-step instructions**
 
 **After Setup:**
+
 1. Create SuperAdmin user via Postman
 2. Login and explore the UI
 3. Create master data (departments, programmes, etc.)
@@ -298,6 +319,7 @@ See [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md#production-deployment) for dep
 ## 🤝 Contributing
 
 Feel free to extend this project with:
+
 - Complaint management module
 - Analytics dashboard
 - Email notifications
@@ -334,4 +356,3 @@ Everything is set up and ready to use. Start with [STARTUP_GUIDE.md](./STARTUP_G
 - [📚 File Structure](./FILE_STRUCTURE.md)
 - [✅ Project Complete](./PROJECT_COMPLETE.md)
 - [⚡ Quick Reference](./QUICK_REFERENCE.md)
-

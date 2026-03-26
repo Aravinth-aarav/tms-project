@@ -16,10 +16,8 @@ TMS-PROJECT/
 ├── 📄 FILE_STRUCTURE.md                  # This file
 │
 ├── server/                               # Node.js server
-│   ├── 📄 server.js                      # Main server file
-│   ├── 📄 package.json                   # Dependencies and scripts
-│   ├── 📄 .env.example                   # Environment template
 │   ├── 📄 .gitignore                     # Git ignore rules
+│   ├── 📄 Dockerfile                     # Server containerization
 │   │
 │   ├── config/                           # Configuration
 │   │   └── 📄 database.js                # MongoDB connection
@@ -34,7 +32,8 @@ TMS-PROJECT/
 │   │   ├── 📄 Programme.js               # Programme schema
 │   │   ├── 📄 Block.js                   # Block schema
 │   │   ├── 📄 Room.js                    # Room schema
-│   │   └── 📄 Role.js                    # Role schema
+│   │   ├── 📄 Role.js                    # Role schema
+│   │   └── 📄 Complaint.js               # Complaint schema
 │   │
 │   ├── controllers/                      # Business logic
 │   │   ├── 📄 authController.js          # Auth logic
@@ -43,7 +42,8 @@ TMS-PROJECT/
 │   │   ├── 📄 blockController.js         # Block logic
 │   │   ├── 📄 roomController.js          # Room logic
 │   │   ├── 📄 roleController.js          # Role logic
-│   │   └── 📄 userController.js          # User logic
+│   │   ├── 📄 userController.js          # User logic
+│   │   └── 📄 complaintController.js     # Complaint logic
 │   │
 │   └── routes/                           # API routes
 │       ├── 📄 authRoutes.js              # Auth endpoints
@@ -52,7 +52,8 @@ TMS-PROJECT/
 │       ├── 📄 blockRoutes.js             # Block endpoints
 │       ├── 📄 roomRoutes.js              # Room endpoints
 │       ├── 📄 roleRoutes.js              # Role endpoints
-│       └── 📄 userRoutes.js              # User endpoints
+│       ├── 📄 userRoutes.js              # User endpoints
+│       └── 📄 complaintRoutes.js         # Complaint endpoints
 │
 └── client/                                # React client
     ├── 📄 package.json                   # Dependencies and scripts
@@ -87,6 +88,7 @@ TMS-PROJECT/
             ├── 📄 RoomPage.js            # Room master
             ├── 📄 RolePage.js            # Role master
             ├── 📄 UserPage.js            # User master
+            ├── 📄 Reports.js             # Reports and Analytics
             └── 📄 MasterScreen.css       # Master screen styles
 ```
 
@@ -146,6 +148,9 @@ TMS-PROJECT/
 
 6. **roles** - Role definitions
    - Fields: name, description, permissions, isActive
+
+7. **complaints** - Ticket/complaint records
+   - Fields: departmentName, programmeName, blockName, roomNumber, complaintType, remarks, attachment, status, createdBy, assignedTo, isEdited
 
 ---
 
@@ -217,6 +222,22 @@ GET    /api/users/:id              - Get user by ID
 POST   /api/users                  - Create user (SuperAdmin)
 PUT    /api/users/:id              - Update user (SuperAdmin)
 DELETE /api/users/:id              - Delete user (SuperAdmin)
+
+### Complaints (Protected)
+
+```
+
+GET /api/complaints - List complaints (Role-based)
+GET /api/complaints/stats - Get dashboard statistics
+GET /api/complaints/report - Generate filtered reports (SuperAdmin)
+POST /api/complaints - Create new complaint (User/SuperAdmin)
+PUT /api/complaints/:id - Update complaint (Owner/SuperAdmin)
+PATCH /api/complaints/:id/assign - Assign complaint (SuperAdmin)
+PATCH /api/complaints/:id/status - Update status (Assignee/SuperAdmin)
+DELETE /api/complaints/:id - Delete complaint (Owner/SuperAdmin)
+
+```
+
 ```
 
 ---
@@ -233,6 +254,7 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 | /rooms       | RoomPage       | -      | -         | ✓          |
 | /roles       | RolePage       | -      | -         | ✓          |
 | /users       | UserPage       | -      | -         | ✓          |
+| /reports     | Reports        | -      | ✓         | ✓          |
 
 ---
 
@@ -240,11 +262,11 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 
 | Layer      | Technology        | Version |
 | ---------- | ----------------- | ------- |
-| client   | React             | 18.2.0  |
-| client   | React Router      | 6.11.0  |
-| client   | Axios             | 1.4.0   |
-| server    | Node.js           | v14+    |
-| server    | Express           | 4.18.2  |
+| client     | React             | 18.2.0  |
+| client     | React Router      | 6.11.0  |
+| client     | Axios             | 1.4.0   |
+| server     | Node.js           | v14+    |
+| server     | Express           | 4.18.2  |
 | Database   | MongoDB           | 4.0+    |
 | Database   | Mongoose          | 7.0.0   |
 | Security   | bcryptjs          | 2.4.3   |
@@ -309,6 +331,8 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 ✅ **Authentication**: JWT implemented
 ✅ **Authorization**: RBAC implemented
 ✅ **Master Screens**: 6 screens created
+✅ **Complaint System**: Fully functional
+✅ **Reporting**: Analytics dashboard ready
 ✅ **Documentation**: Comprehensive guides
 
 ---
@@ -330,12 +354,12 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 
 ## Next Steps for Development
 
-1. **Add Complaint Management**
+1. **Add Complaint Management** (COMPLETED)
    - Complaint registration form
    - Status tracking
    - Assignment workflow
 
-2. **Add Reporting Features**
+2. **Add Reporting Features** (COMPLETED)
    - Analytics dashboard
    - Complaint reports
    - Department performance
@@ -369,4 +393,3 @@ DELETE /api/users/:id              - Delete user (SuperAdmin)
 ---
 
 **Everything is ready to use! Start with STARTUP_GUIDE.md for step-by-step instructions.**
-

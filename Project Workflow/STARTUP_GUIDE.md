@@ -4,11 +4,23 @@
 
 Before you begin, ensure you have the following installed:
 
-1. **Node.js** (v14 or higher) - [Download](https://nodejs.org/)
-2. **MongoDB** (v4 or higher) - [Download](https://www.mongodb.com/try/download/community)
-3. **Postman** (for API testing) - [Download](https://www.postman.com/downloads/)
+1. **Docker Desktop** (Recommended) - [Download](https://www.docker.com/products/docker-desktop/)
+2. **Node.js** (v14 or higher) - [Download](https://nodejs.org/)
+3. **MongoDB** (If running locally) - [Download](https://www.mongodb.com/try/download/community)
+4. **Postman** (for API testing) - [Download](https://www.postman.com/downloads/)
 
-## Quick Start Guide
+## Quick Start Guide (The Easiest Way)
+
+### Step 1: Automated Startup (Docker)
+
+1. Ensure **Docker Desktop** is open and running on your machine.
+2. In the project root, locate and double-click the file:
+   ```bash
+   run_app.bat
+   ```
+3. This will automatically start all services and open your browser to `http://localhost:3000`.
+
+---
 
 ### Step 1: Start MongoDB
 
@@ -196,6 +208,11 @@ Headers: Authorization: Bearer <token>
 
 ## Troubleshooting
 
+### Docker Issues
+
+- **Port Conflict**: If port 3000 or 5000 is used by another app, Docker will fail.
+- **Docker Not Running**: Ensure the Docker Desktop is running in your system tray.
+
 ### MongoDB Connection Error
 
 - Ensure MongoDB is running
@@ -235,28 +252,11 @@ Headers: Authorization: Bearer <token>
 ## Project File Structure
 
 ```
-TMS-TEST-PROJECT/
-├── server/
-│   ├── config/database.js
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── .env.example
-│   ├── package.json
-│   └── server.js
-│
-├── client/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── context/
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-│
+TMS-PROJECT/
+├── server/            (Backend API)
+├── client/            (Frontend React)
+├── docker-compose.yml  (Docker orchestration)
+├── run_app.bat        (One-click startup)
 ├── README.md
 ├── POSTMAN_SETUP.md
 └── STARTUP_GUIDE.md
@@ -274,4 +274,3 @@ TMS-TEST-PROJECT/
 
 For detailed API documentation, see [README.md](./README.md)
 For Postman setup details, see [POSTMAN_SETUP.md](./POSTMAN_SETUP.md)
-

@@ -1,4 +1,5 @@
 # TMS - Complaint Management System
+
 ## Project Complete ✓
 
 ### What Has Been Created
@@ -12,24 +13,29 @@ A complete MERN stack application for managing complaints related to hardware, s
 ### server (Node.js + Express + MongoDB)
 
 #### Configuration & Setup
+
 - ✓ `.env.example` - Environment configuration template
 - ✓ `.gitignore` - Git ignore rules
 - ✓ `package.json` - Dependencies and scripts
 - ✓ `server.js` - Main server entry point
 
 #### Database Models (MongoDB)
+
 - ✓ `User.js` - User accounts with roles and departments
 - ✓ `Department.js` - Department master data
 - ✓ `Programme.js` - Programme/course data
 - ✓ `Block.js` - Building/block information
 - ✓ `Room.js` - Room/classroom data
 - ✓ `Role.js` - Role definitions
+- ✓ `Complaint.js` - Ticket/complaint system logic
 
 #### Middleware
+
 - ✓ `auth.js` - JWT authentication middleware
 - ✓ `roleCheck.js` - Role-based access control
 
 #### Controllers (Business Logic)
+
 - ✓ `authController.js` - Login, Register, Profile
 - ✓ `departmentController.js` - CRUD operations
 - ✓ `programmeController.js` - CRUD operations
@@ -37,8 +43,10 @@ A complete MERN stack application for managing complaints related to hardware, s
 - ✓ `roomController.js` - CRUD operations
 - ✓ `roleController.js` - CRUD operations
 - ✓ `userController.js` - CRUD operations
+- ✓ `complaintController.js` - Ticket management logic
 
 #### API Routes
+
 - ✓ `authRoutes.js` - Authentication endpoints
 - ✓ `departmentRoutes.js` - Department endpoints
 - ✓ `programmeRoutes.js` - Programme endpoints
@@ -46,28 +54,34 @@ A complete MERN stack application for managing complaints related to hardware, s
 - ✓ `roomRoutes.js` - Room endpoints
 - ✓ `roleRoutes.js` - Role endpoints
 - ✓ `userRoutes.js` - User endpoints
+- ✓ `complaintRoutes.js` - Ticket/Complaint endpoints
 
 ---
 
 ### client (React + React Router + Axios)
 
 #### Configuration & Setup
+
 - ✓ `package.json` - Dependencies and scripts
 - ✓ `public/index.html` - HTML entry point
 - ✓ `src/index.js` - React entry point
 - ✓ `src/index.css` - Global styles
 
 #### Context & State Management
+
 - ✓ `context/AuthContext.js` - Authentication context and provider
 
 #### Services
+
 - ✓ `services/api.js` - Axios API client with interceptors
 
 #### Components
+
 - ✓ `components/Navbar.js` - Navigation bar with role-aware menu
 - ✓ `components/Navbar.css` - Navigation styles
 
 #### Pages
+
 - ✓ `pages/HomePage.js` - Dashboard/home page
 - ✓ `pages/LoginPage.js` - Login form with JWT
 - ✓ `pages/LoginPage.css` - Login styles
@@ -80,8 +94,10 @@ A complete MERN stack application for managing complaints related to hardware, s
 - ✓ `pages/MasterScreen.css` - Master screens styling
 
 #### Main Application
+
 - ✓ `App.js` - Application routing with SuperAdmin protection
 - ✓ `App.css` - Application styles
+- ✓ `Reports.js` - Analytics and reporting interface
 
 ---
 
@@ -97,6 +113,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 ## Features Implemented
 
 ### Authentication & Authorization
+
 - ✓ User registration and login with JWT tokens
 - ✓ Role-based access control (RBAC)
 - ✓ SuperAdmin exclusive access to master screens
@@ -105,6 +122,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 - ✓ Token-based authentication
 
 ### Master Screens (SuperAdmin Only)
+
 1. **Department Screen**
    - Create, Read, Update, Delete departments
    - Fields: Name, Short Name, Description
@@ -130,6 +148,7 @@ A complete MERN stack application for managing complaints related to hardware, s
    - Fields: Username, Email, Phone, Password, Role, Department, Programme
 
 ### User Roles
+
 - SuperAdmin - Full system access
 - User - Basic user
 - Networking Staff - Networking related
@@ -139,6 +158,10 @@ A complete MERN stack application for managing complaints related to hardware, s
 - (Customizable - add more as needed)
 
 ### client Features
+
+- ✓ Complaint Management (Assign, Close, Reopen)
+- ✓ Dockerization (Containers for all services)
+- ✓ Automated Startup Script (`run_app.bat`)
 - ✓ Responsive design
 - ✓ Clean and intuitive UI
 - ✓ Role-aware navigation
@@ -148,6 +171,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 - ✓ Token persistence
 
 ### server Features
+
 - ✓ RESTful API endpoints
 - ✓ CORS enabled
 - ✓ Error handling middleware
@@ -160,6 +184,7 @@ A complete MERN stack application for managing complaints related to hardware, s
 ## Database Schema
 
 ### User Collection
+
 ```json
 {
   "_id": ObjectId,
@@ -183,11 +208,13 @@ Similar schemas exist for Department, Programme, Block, Room, and Role.
 ## API Endpoints Summary
 
 ### Authentication (Public)
+
 - POST `/api/auth/register` - Register new user
 - POST `/api/auth/login` - Login user
 - GET `/api/auth/profile` - Get user profile (Protected)
 
 ### Master Data (Protected - SuperAdmin)
+
 - GET/POST/PUT/DELETE `/api/departments`
 - GET/POST/PUT/DELETE `/api/programmes`
 - GET/POST/PUT/DELETE `/api/blocks`
@@ -199,22 +226,22 @@ Similar schemas exist for Department, Programme, Block, Room, and Role.
 
 ## Project Statistics
 
-- **server Files**: 20+ files
-  - 6 Models
-  - 7 Controllers
-  - 7 Routes
+- **server Files**: 30+ files
+  - 7 Models (Including Complaint)
+  - 8 Controllers (Including Complaint)
+  - 8 Routes (Including Complaint)
   - 2 Middleware
   - 1 Config
   - Server setup
 
-- **client Files**: 15+ files
-  - 8 Page components
+- **client Files**: 20+ files
+  - 9 Page components (Including Reports)
   - 1 Navigation component
   - 1 Auth context
   - 1 API service
   - 2 Main app files
 
-- **Documentation**: 4 comprehensive guides
+- **Documentation**: 10 comprehensive guides (Including Docker)
 
 ---
 
@@ -223,11 +250,13 @@ Similar schemas exist for Department, Programme, Block, Room, and Role.
 ### Quick Start (3 Steps)
 
 1. **Start MongoDB**
+
    ```bash
    mongod
    ```
 
 2. **Start server**
+
    ```bash
    cd server
    npm install
@@ -244,6 +273,7 @@ Similar schemas exist for Department, Programme, Block, Room, and Role.
 ### Create SuperAdmin User
 
 Use Postman to POST to `http://localhost:5000/api/auth/register`:
+
 ```json
 {
   "username": "superadmin",
@@ -261,14 +291,14 @@ Then login at `http://localhost:3000/login`
 
 ## Technology Stack
 
-| Layer | Technology |
-|-------|-----------|
-| client | React 18.2, React Router 6.11, Axios 1.4 |
-| server | Node.js, Express.js, MongoDB, Mongoose |
-| Authentication | JWT (JSON Web Tokens) |
-| Password Security | bcryptjs |
-| API Communication | REST with CORS |
-| Database | MongoDB |
+| Layer             | Technology                               |
+| ----------------- | ---------------------------------------- |
+| client            | React 18.2, React Router 6.11, Axios 1.4 |
+| server            | Node.js, Express.js, MongoDB, Mongoose   |
+| Authentication    | JWT (JSON Web Tokens)                    |
+| Password Security | bcryptjs                                 |
+| API Communication | REST with CORS                           |
+| Database          | MongoDB                                  |
 
 ---
 
@@ -289,18 +319,18 @@ Then login at `http://localhost:3000/login`
 
 ## Next Steps (Future Enhancements)
 
-1. Create Complaint Management System
+1. Create Complaint Management System (COMPLETED)
    - Complaint registration
    - Status tracking
    - Assignment to staff
 
-2. Add Email Notifications
-3. Implement Dashboard with Analytics
-4. Add File Upload for Attachments
-5. Create Mobile Application
-6. Implement Search and Filtering
-7. Add Audit Logs
-8. Create Reports Module
+2. Create Reports Module (COMPLETED)
+   - Filtered database views
+   - Status breakdowns
+
+3. Add Dockerization (COMPLETED)
+   - Containerization for all services
+   - Automation scripts
 
 ---
 
@@ -316,6 +346,7 @@ Then login at `http://localhost:3000/login`
 ## Project Ready! 🚀
 
 All files have been created and are ready for:
+
 1. Installation of dependencies
 2. Configuration and setup
 3. Database initialization
@@ -323,4 +354,3 @@ All files have been created and are ready for:
 5. client development and testing
 
 For step-by-step instructions, refer to `STARTUP_GUIDE.md`
-

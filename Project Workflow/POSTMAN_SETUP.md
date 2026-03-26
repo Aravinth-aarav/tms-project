@@ -16,6 +16,7 @@ Follow these steps to create a SuperAdmin user using Postman:
 
 1. Open Postman
 2. Create a new POST request with the following URL:
+
    ```
    http://localhost:5000/api/auth/register
    ```
@@ -23,6 +24,7 @@ Follow these steps to create a SuperAdmin user using Postman:
 3. Go to the **Body** tab and select **raw** → **JSON**
 
 4. Enter the following JSON data:
+
    ```json
    {
      "username": "superadmin",
@@ -56,6 +58,7 @@ Follow these steps to create a SuperAdmin user using Postman:
 ### Step 3: Login with SuperAdmin Credentials
 
 1. Create a new POST request:
+
    ```
    http://localhost:5000/api/auth/login
    ```
@@ -63,6 +66,7 @@ Follow these steps to create a SuperAdmin user using Postman:
 2. Go to **Body** → **raw** → **JSON**
 
 3. Enter:
+
    ```json
    {
      "email": "superadmin@example.com",
@@ -102,15 +106,17 @@ Follow these steps to create a SuperAdmin user using Postman:
 **URL**: POST `http://localhost:5000/api/departments`
 
 **Headers**:
+
 ```
 Authorization: Bearer <your_jwt_token>
 ```
 
 **Body** (raw JSON):
+
 ```json
 {
   "name": "Computer Science",
-    "shortName": "CSE1",
+  "shortName": "CSE1",
   "description": "Computer Science Department"
 }
 ```
@@ -120,15 +126,17 @@ Authorization: Bearer <your_jwt_token>
 **URL**: POST `http://localhost:5000/api/programmes`
 
 **Headers**:
+
 ```
 Authorization: Bearer <your_jwt_token>
 ```
 
 **Body** (raw JSON):
+
 ```json
 {
   "name": "Bachelor of Technology",
-    "shortName": "BTECH1",
+  "shortName": "BTECH1",
   "department": "507f1f77bcf86cd799439011",
   "description": "Bachelor of Technology Programme"
 }
@@ -139,11 +147,13 @@ Authorization: Bearer <your_jwt_token>
 **URL**: POST `http://localhost:5000/api/blocks`
 
 **Headers**:
+
 ```
 Authorization: Bearer <your_jwt_token>
 ```
 
 **Body** (raw JSON):
+
 ```json
 {
   "name": "Block A",
@@ -158,11 +168,13 @@ Authorization: Bearer <your_jwt_token>
 **URL**: POST `http://localhost:5000/api/rooms`
 
 **Headers**:
+
 ```
 Authorization: Bearer <your_jwt_token>
 ```
 
 **Body** (raw JSON):
+
 ```json
 {
   "roomNumber": "101",
@@ -180,11 +192,13 @@ Authorization: Bearer <your_jwt_token>
 **URL**: POST `http://localhost:5000/api/roles`
 
 **Headers**:
+
 ```
 Authorization: Bearer <your_jwt_token>
 ```
 
 **Body** (raw JSON):
+
 ```json
 {
   "name": "Electrician",
@@ -198,11 +212,13 @@ Authorization: Bearer <your_jwt_token>
 **URL**: POST `http://localhost:5000/api/users`
 
 **Headers**:
+
 ```
 Authorization: Bearer <your_jwt_token>
 ```
 
 **Body** (raw JSON):
+
 ```json
 {
   "username": "john_doe",
@@ -214,6 +230,38 @@ Authorization: Bearer <your_jwt_token>
 }
 ```
 
+#### Complaint Management
+
+**1. Create a Complaint**
+**URL**: POST `http://localhost:5000/api/complaints`
+**Body** (form-data):
+
+- `blockName`: "Block A"
+- `roomNumber`: "101"
+- `complaintType`: "Electrical"
+- `remarks`: "Fan not working"
+- `attachment`: (File)
+
+**2. Assign Complaint**
+**URL**: PATCH `http://localhost:5000/api/complaints/:id/assign`
+**Body** (raw JSON):
+
+```json
+{
+  "assignedTo": "USER_ID_OF_STAFF"
+}
+```
+
+**3. Update Status (Technician)**
+**URL**: PATCH `http://localhost:5000/api/complaints/:id/status`
+**Body** (raw JSON):
+
+```json
+{
+  "status": "Completed"
+}
+```
+
 ## Important Notes
 
 - SuperAdmin is the only role that can access all master screens
@@ -221,4 +269,3 @@ Authorization: Bearer <your_jwt_token>
 - The JWT token expires in 7 days (configurable in `.env`)
 - Always include the `Authorization` header with the `Bearer <token>` format
 - Use valid MongoDB ObjectIds for department, programme, block, and room references
-

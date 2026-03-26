@@ -75,13 +75,13 @@ const User = () => {
 
       // Password validation
       const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
       if (submitData.password && !passwordRegex.test(submitData.password)) {
         setError(
-          "Password must be 6-8 characters with Uppercase, Lowercase, Number and Special char",
+          "Password must be 8-15 characters with Uppercase, Lowercase, Number and Special char",
         );
         toast.error(
-          "Weak password! Use 6-8 chars with A-Z, a-z, 0-9, and special char",
+          "Weak password! Use 8-15 chars with A-Z, a-z, 0-9, and special char",
         );
         return;
       }

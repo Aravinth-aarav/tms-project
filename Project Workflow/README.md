@@ -4,13 +4,10 @@
 
 A comprehensive complaint management system built with the MERN stack (MongoDB, Express, React, Node.js) to streamline the process of receiving, recording, and addressing complaints related to hardware, software, and various other issues.
 
-## Technology Stack
-
-- **client**: React 18.2.0, React Router DOM (located in `/client`)
-- **server**: Node.js, Express.js (located in `/server`)
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Tokens)
-- **Password Hashing**: bcryptjs
+- **API**: Node.js & Express.js
+- **Database**: MongoDB (Local or Dockerized)
+- **Deployment**: Render (API: `https://tms-project-su5o.onrender.com/api`)
+- **Containerization**: Docker & Docker Compose
 
 ## Project Structure
 
@@ -26,7 +23,8 @@ TMS-TEST-PROJECT/
 │   │   ├── blockController.js
 │   │   ├── roomController.js
 │   │   ├── roleController.js
-│   │   └── userController.js
+│   │   ├── userController.js
+│   │   └── complaintController.js
 │   ├── middleware/
 │   │   ├── auth.js
 │   │   └── roleCheck.js
@@ -44,7 +42,9 @@ TMS-TEST-PROJECT/
 │   │   ├── blockRoutes.js
 │   │   ├── roomRoutes.js
 │   │   ├── roleRoutes.js
-│   │   └── userRoutes.js
+│   │   ├── userRoutes.js
+│   │   └── complaintRoutes.js
+│   ├── Dockerfile
 │   ├── .env.example
 │   ├── .gitignore
 │   ├── package.json
@@ -64,6 +64,7 @@ TMS-TEST-PROJECT/
     │   │   ├── Login.js
     │   │   ├── Login.css
     │   │   ├── Department.js
+    │   │   ├── Reports.js
     │   │   └── MasterScreen.css
     │   ├── services/
     │   │   └── api.js
@@ -72,6 +73,9 @@ TMS-TEST-PROJECT/
     │   ├── index.js
     │   ├── index.css
     │   └── package.json
+├── docker-compose.yml
+├── run_app.bat
+├── DOCKER_SUMMARY.md
 ```
 
 ## Installation
@@ -103,6 +107,12 @@ TMS-TEST-PROJECT/
    npm run dev
    ```
    The server will run on `http://localhost:5000`
+
+### Docker Setup (Easiest)
+
+1. Ensure Docker is installed and running.
+2. Run `run_app.bat` (Windows) or `docker-compose up`.
+3. Application will be available at `http://localhost:3000`.
 
 ### Client Setup (formerly client)
 
@@ -180,6 +190,13 @@ TMS-TEST-PROJECT/
 - **PUT** `/api/users/:id` - Update user (SuperAdmin only)
 - **DELETE** `/api/users/:id` - Delete user (SuperAdmin only)
 
+### Complaints
+
+- **GET** `/api/complaints` - List complaints (Filtered by role)
+- **POST** `/api/complaints` - Create new ticket (User/SuperAdmin)
+- **PATCH** `/api/complaints/:id/assign` - Assign to staff (SuperAdmin only)
+- **PATCH** `/api/complaints/:id/status` - Update progress (Assignee/Admin)
+
 ## Database Models
 
 ### User
@@ -234,6 +251,19 @@ TMS-TEST-PROJECT/
 - permissions (array of strings)
 - isActive (boolean, default: true)
 
+### Complaint
+
+- departmentName (String)
+- programmeName (String)
+- blockName (String)
+- roomNumber (String)
+- complaintType (String)
+- remarks (String)
+- attachment (Path to file)
+- status (enum: Pending, Assigned, In-Progress, Onhold, Completed)
+- createdBy (ref: User)
+- assignedTo (ref: User)
+
 ## Security Features
 
 - **JWT Authentication**: Secure token-based authentication
@@ -278,4 +308,3 @@ NODE_ENV=development
 ## License
 
 ISC
-
