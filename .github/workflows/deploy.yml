@@ -3,12 +3,12 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    # trigger pipeline
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -22,14 +22,12 @@ jobs:
       - name: Set version
         run: echo "VERSION=v1" >> $GITHUB_ENV
 
-      # 🔹 Build Backend Image
       - name: Build Backend Image
         run: docker build -t aravinth2005/tms-server:${{ env.VERSION }} ./server
 
       - name: Push Backend Image
         run: docker push aravinth2005/tms-server:${{ env.VERSION }}
 
-      # 🔹 Build Frontend Image
       - name: Build Frontend Image
         run: docker build -t aravinth2005/tms-client:${{ env.VERSION }} ./client
 
